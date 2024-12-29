@@ -1,0 +1,19 @@
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+/usr/local/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241229-29-jukcdj sitelibdir\=./.gem.20241229-29-jukcdj clean
+
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241229-29-jukcdj sitelibdir\=./.gem.20241229-29-jukcdj
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241229-29-jukcdj sitelibdir\=./.gem.20241229-29-jukcdj install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20241229-29-jukcdj/debug
+
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241229-29-jukcdj sitelibdir\=./.gem.20241229-29-jukcdj clean
