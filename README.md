@@ -69,12 +69,13 @@ MVPリリース時に作っていたいもの
 ■ 機能の実装方針予定
 # 一般的なCRUD以外の実装予定の機能についてそれぞれどのようなイメージ(使用するAPIや)で実装する予定なのか現状考えているもので良いので教えて下さい。
 ユーザー登録関連: omniauth-google-oauth2
-広告関連: Google AdMob
+
+広告関連: Google Adsense
 生成AI関連: OpenAI API（ChatGPT 4o mini、DALL-E 2）
 SNS共有関連: APIは使用せず、戦闘結果の文章や生成したキャラへの詳細ページURLを共有できるようにしたいです。
 フロントエンド: Tailwind CSS
 データベース: PostgreSQL
-サーバー: Railway.app
+サーバー: Heroku
 
 ■ 追加機能・追加サービス
 マッチメイキング機能: 完全ランダムで他のキャラと対戦できる。
