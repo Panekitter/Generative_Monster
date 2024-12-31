@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>GENEARENA</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,7 +10,25 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
+  <header class="mb-10 bg-primary text-primary-content">
+    <div class="container mx-auto p-4 flex justify-between items-center">
+      <%= link_to "GENEARENA", root_path, class: "link link-hover text-3xl font-bold" %>
+      <%= link_to "Sign in with Googleボタンのダミー", "#", class: "link link-hover" %>
+    </div>
+  </header>
+
   <body>
     <%= yield %>
   </body>
+
+  <footer class="mt-10 bg-neutral text-neutral-content py-4">
+    <div class="container mx-auto text-center text-sm">
+      &copy; GENEARENA. All rights reserved.
+      <div class="mt-2 flex justify-center space-x-4">
+        <%= link_to "プライバシーポリシー", "#", class: "link link-hover text-gray-400" %>
+        <%= link_to "利用規約", "#", class: "link link-hover text-gray-400" %>
+        <%= link_to "お問い合わせ", "#", class: "link link-hover text-gray-400" %>
+      </div>
+    </div>
+  </footer>
 </html>
