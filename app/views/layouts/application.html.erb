@@ -13,8 +13,20 @@
   <header class="mb-10 bg-primary text-primary-content">
     <div class="container mx-auto p-4 flex justify-between items-center">
       <%= link_to "GENEARENA", root_path, class: "link link-hover text-3xl font-logo" %>
-      <%= link_to "Sign in with Googleボタンのダミー", "#", class: "link link-hover" %>
+      <div>
+        <% if current_user %>
+          <%= current_user.name %>さん
+          <%= link_to "ログアウト", log_out_path %>
+        <% else %>
+          <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false } %>
+        <% end %>
+      </div>
     </div>
+    <% if flash[:alert] %>
+      <div class="bg-red-500 text-white text-center p-2">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
   </header>
 
   <body>
