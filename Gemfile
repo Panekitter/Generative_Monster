@@ -73,3 +73,10 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+# Googleアカウントのログイン処理
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
+gem 'dotenv'
+gem 'loofah'
