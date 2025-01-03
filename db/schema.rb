@@ -10,15 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_02_012610) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_03_083529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+  create_table "battles", force: :cascade do |t|
+    t.integer "character_1_id"
+    t.integer "character_2_id"
+    t.integer "winner_id"
+    t.text "event", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "characters", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "hp", null: false
+    t.integer "agility", null: false
+    t.integer "strength", null: false
+    t.integer "intelligence", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_characters_on_user_id"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_skills_on_character_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "battles", "characters", column: "character_1_id", on_delete: :nullify
+  add_foreign_key "battles", "characters", column: "character_2_id", on_delete: :nullify
+  add_foreign_key "battles", "characters", column: "winner_id", on_delete: :nullify
+  add_foreign_key "characters", "users"
+  add_foreign_key "skills", "characters"
 end

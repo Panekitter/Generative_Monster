@@ -23,9 +23,9 @@
           <% end %>
         </div>
       </div>
-      <% if flash[:alert] %>
-        <div class="bg-red-500 text-white text-center p-2">
-          <%= flash[:alert] %>
+      <% flash.each do |type, message| %>
+        <div class="p2 text-center text-white <%= type == 'alert' ? 'bg-red-500' : 'bg-green-500' %>">
+          <%= message %>
         </div>
       <% end %>
     </header>
