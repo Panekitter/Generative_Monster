@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  description: MyText
+  hp: 1
+  agility: 1
+  strength: 1
+  intelligence: 1
+
+two:
+  user: two
+  name: MyString
+  description: MyText
+  hp: 1
+  agility: 1
+  strength: 1
+  intelligence: 1

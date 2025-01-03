@@ -9,7 +9,11 @@ services:
       - postgres_volume:/var/lib/postgresql/data
     restart: always
   web:
-    build: .
+    build:
+      context: .
+      args:
+        UID: "${UID}" # ホストのUID
+        GID: "${GID}" # ホストのGID
     command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
       POSTGRES_USER: postgres
