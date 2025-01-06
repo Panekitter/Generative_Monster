@@ -1,1 +1,59 @@
-<h1>Your Dashboard</h1>
+<div class="bg-base-100 text-base-content p-10">
+  <!-- ユーザー情報 -->
+  <section class="flex flex-col items-center mb-8">
+    <img src="https://via.placeholder.com/150" alt="サムネイル" class="rounded-full mb-4">
+    <p class="text-lg font-semibold">プレイヤー名のプレースホルダー</p>
+    <p>生成したキャラの数: XX体</p>
+    <p>これまでに行った戦闘回数: XX回</p>
+    <p>勝率: XX%</p>
+  </section>
+
+  <!-- アクションボタン -->
+  <section class="grid grid-cols-2 gap-6 max-w-4xl mx-auto text-center mb-8">
+  <div class="flex flex-col justify-between items-center p-4">
+    <p class="mb-4">あなたのアイデアを入力して、オリジナルキャラクターを生成しよう！</p>
+    <button class="btn btn-primary w-full">キャラを生成</button>
+  </div>
+  <div class="flex flex-col justify-between items-center p-4">
+    <p class="mb-4">これまでに作ったキャラクターを選択し、バトルに挑もう！</p>
+    <button class="btn btn-primary w-full">キャラー一覧</button>
+  </div>
+  <div class="flex flex-col justify-between items-center p-4">
+    <p class="mb-4">これまでの戦闘結果を確認して、次の戦略を考えよう！</p>
+    <button class="btn btn-primary w-full">戦闘履歴</button>
+  </div>
+  <div class="flex flex-col justify-between items-center p-4">
+    <p class="mb-4">全国のライバルをチェックしよう！</p>
+    <button class="btn btn-primary w-full">プレイヤー一覧</button>
+  </div>
+</section>
+
+
+  <!-- 最近生成されたキャラクター -->
+  <section>
+    <h2 class="text-2xl font-bold mb-4 text-center">最近生成されたキャラクター</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- キャラクターカード -->
+      <div class="card bg-base-100 shadow-md p-4">
+        <img src="https://via.placeholder.com/150" alt="キャラクター画像" class="rounded mb-4">
+        <h3 class="text-sm md:text-base lg:text-lg font-bold">名前: バイク・ガンモンスター</h3>
+        <p class="text-xs md:text-sm mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+          説明: バイク・ガンモンスターは、バイクに乗って銃を乱射する強力なモンスター。バイクを駆使して、驚異的なスピードで戦いながら銃を乱射することができる。その攻撃は非常に強力で、バイクによる加速と合わせて圧倒的な破壊力を誇るが、スピードを活かしすぎて反応速度に限界があり、時折隙を見せる。見た目は恐ろしいが、その戦闘能力は非常に高い。
+        </p>
+        <button class="btn btn-outline btn-secondary">詳細</button>
+      </div>
+
+      <!-- 他のカードを複製 -->
+      <div class="card bg-base-100 shadow-md p-4">
+        <img src="https://via.placeholder.com/150" alt="キャラクター画像" class="rounded mb-4">
+        <h3 class="text-sm md:text-base lg:text-lg font-bold">名前: バイク・ガンモンスター</h3>
+        <p class="text-xs md:text-sm mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+          説明: バイク・ガンモンスターは、バイクに乗って銃を乱射する強力なモンスター。バイクを駆使して、驚異的なスピードで戦いながら銃を乱射することができる。その攻撃は非常に強力で、バイクによる加速と合わせて圧倒的な破壊力を誇るが、スピードを活かしすぎて反応速度に限界があり、時折隙を見せる。見た目は恐ろしいが、その戦闘能力は非常に高い。
+        </p>
+        <button class="btn btn-outline btn-secondary">詳細</button>
+      </div>
+
+      <!-- 必要に応じてさらにカードを追加 -->
+    </div>
+  </section>
+</div>
