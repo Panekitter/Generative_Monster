@@ -19,7 +19,9 @@
             <%= current_user.name %>さん
             <%= link_to "ログアウト", log_out_path %>
           <% else %>
-            <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false } %>
+            <%= button_to "/auth/google_oauth2", method: :post, data: { turbo: false }, class:"flex" do %>
+              <%= image_tag "https://developers.google.com/identity/images/branding_guideline_sample_lt_sq_lg.svg", alt: "Googleでログイン" %>
+            <% end %>
           <% end %>
         </div>
       </div>
