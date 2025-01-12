@@ -1,0 +1,41 @@
+<div class="p-6 bg-base-100 rounded-lg shadow-md">
+  <!-- キャラクター画像 -->
+  <div class="mb-6 flex justify-center">
+    <img src="<%= @character.image.url %>" alt="<%= @character.name %>" class="rounded-lg shadow-md w-64 h-64 object-cover">
+
+  </div>
+
+  <!-- キャラクター情報 -->
+  <h1 class="text-3xl font-bold mb-4"><%= @character.name %></h1>
+  <p class="text-lg mb-2">
+    <strong class="font-semibold">説明:</strong> <%= @character.description %>
+  </p>
+  <p class="text-lg mb-2">
+    <strong class="font-semibold">HP:</strong> <%= @character.hp %>
+  </p>
+  <p class="text-lg mb-2">
+    <strong class="font-semibold">素早さ:</strong> <%= @character.agility %>
+  </p>
+  <p class="text-lg mb-2">
+    <strong class="font-semibold">筋力:</strong> <%= @character.strength %>
+  </p>
+  <p class="text-lg mb-4">
+    <strong class="font-semibold">賢さ:</strong> <%= @character.intelligence %>
+  </p>
+
+  <!-- スキル一覧 -->
+  <h2 class="text-2xl font-bold mt-6 mb-4">スキル</h2>
+  <ul class="list-disc pl-6 space-y-2">
+    <% @skills.each do |skill| %>
+      <li class="text-lg">
+        <strong class="font-semibold"><%= skill.name %>:</strong> <%= skill.description %>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- ボタン -->
+  <div class="mt-6 flex space-x-4">
+    <button class="btn btn-primary">バトル開始！</button>
+    <button class="btn btn-outline btn-secondary">共有</button>
+  </div>
+</div>

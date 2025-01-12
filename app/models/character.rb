@@ -1,4 +1,6 @@
 class Character < ApplicationRecord
+  mount_uploader :image, CharacterImageUploader
+
   belongs_to :user
   has_many :skills, dependent: :destroy
   has_many :battles_as_character_1, class_name: 'Battle', foreign_key: :character_1_id
@@ -10,5 +12,5 @@ class Character < ApplicationRecord
   validates :agility, presence: true
   validates :strength, presence: true
   validates :intelligence, presence: true
-
+  # validates :image, presence: true
 end
