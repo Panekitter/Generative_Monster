@@ -74,9 +74,20 @@ group :test do
 
 end
 
+group :production do
+  gem 'fog-aws'
+end
+
 # Googleアカウントのログイン処理
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'dotenv'
 gem 'loofah'
+
+# AWS S3用
+gem 'carrierwave'
+gem 'mini_magick'
+
+# OpenAI API用
+gem "ruby-openai"

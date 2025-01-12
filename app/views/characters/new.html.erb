@@ -1,0 +1,29 @@
+<div class="container mx-auto max-w-xl p-6 bg-base-200 rounded-lg shadow-lg">
+  <h1 class="text-2xl font-bold text-center mb-6">キャラクター生成フォーム</h1>
+
+  <%= form_with url: characters_path, method: :post, local: true, class: "space-y-4" do |f| %>
+    <!-- キャラクターの説明 -->
+    <div class="form-control">
+      <%= label_tag :description_from_user, "キャラクターの説明", class: "label font-bold" %>
+      <%= text_field_tag :description_from_user, nil, id: "description_from_user", 
+            class: "input input-bordered w-full", required: true, placeholder: "例: バイクに乗って銃を乱射する銃の達人" %>
+    </div>
+
+    <!-- キャラクターのタイプ -->
+    <div class="form-control">
+      <%= label_tag :type, "キャラクターのタイプ", class: "label font-bold" %>
+      <%= select_tag :type, options_for_select(["モンスター", "ヒーロー", "ロボット"]), 
+            id: "type", class: "select select-bordered w-full", required: true %>
+    </div>
+
+    <!-- 送信ボタン -->
+    <div class="text-center">
+      <%= submit_tag "キャラクターを生成", class: "btn btn-primary w-full" %>
+    </div>
+  <% end %>
+
+  <!-- キャラクター一覧に戻るリンク -->
+  <div class="mt-4 text-center">
+    <%= link_to "キャラクター一覧に戻る", user_characters_path(current_user), class: "btn btn-outline w-full" %>
+  </div>
+</div>

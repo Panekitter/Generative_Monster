@@ -12,6 +12,20 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'log_out', to: 'sessions#destroy', as: 'log_out'
-
   resources :sessions, only: %i[create destroy]
+
+  # ユーザー関連
+  resources :users, only: [:index, :show, :edit, :update] do
+    # バトル関連（戦闘履歴）
+    resources :battles, only: [:index]
+    # キャラクター関連
+    resources :characters, only: [:index, :new]
+  end
+
+  # キャラクター単独操作
+  resources :characters, only: [:new, :create, :show, :update, :destroy]
+
+  # バトル関連（独立したバトル操作）
+  resources :battles, only: [:create, :show]
+
 end

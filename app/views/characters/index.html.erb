@@ -1,0 +1,29 @@
+<div class="container mx-auto p-6">
+  <!-- ページタイトル -->
+  <h1 class="text-4xl font-bold text-center mb-8">キャラクター一覧</h1>
+
+  <!-- キャラクター一覧 -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <% @characters.each do |character| %>
+      <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+        <!-- キャラクター画像 -->
+        <figure>
+          <%= image_tag(character.image.url, alt: character.name, class: "w-full h-48 object-cover rounded-t-lg") if character.image? %>
+        </figure>
+
+        <!-- キャラクター情報 -->
+        <div class="p-4">
+          <h2 class="text-xl font-semibold mb-2"><%= character.name %></h2>
+          <p class="text-sm text-gray-600 mb-4"><%= truncate(character.description, length: 100) %></p>
+
+          <!-- 詳細・削除ボタン -->
+          <div class="flex justify-between">
+            <%= link_to "詳細を見る", character_path(character), class: "btn btn-primary btn-sm" %>
+            <%= link_to "削除", character_path(character), method: :delete, class: "btn btn-error btn-sm" %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

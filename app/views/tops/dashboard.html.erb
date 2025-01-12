@@ -1,4 +1,4 @@
-<div class="bg-base-100 text-base-content p-10">
+<div class="bg-base-100 text-base-content p-2 md:p-10">
   <!-- ユーザー情報 -->
   <section class="flex flex-col items-center mb-8">
     <img src="https://via.placeholder.com/150" alt="サムネイル" class="rounded-full mb-4">
@@ -12,7 +12,7 @@
   <section class="grid grid-cols-2 gap-6 max-w-4xl mx-auto text-center mb-8">
   <div class="flex flex-col justify-between items-center p-4">
     <p class="mb-4">あなたのアイデアを入力して、オリジナルキャラクターを生成しよう！</p>
-    <button class="btn btn-primary w-full">キャラを生成</button>
+    <%= link_to "キャラを生成", new_character_path, class: "btn btn-primary w-full" %>
   </div>
   <div class="flex flex-col justify-between items-center p-4">
     <p class="mb-4">これまでに作ったキャラクターを選択し、バトルに挑もう！</p>
@@ -32,7 +32,7 @@
   <!-- 最近生成されたキャラクター -->
   <section>
     <h2 class="text-2xl font-bold mb-4 text-center">最近生成されたキャラクター</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
       <!-- キャラクターカード -->
       <div class="card bg-base-100 shadow-md p-4">
         <img src="https://via.placeholder.com/150" alt="キャラクター画像" class="rounded mb-4">
