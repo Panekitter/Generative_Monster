@@ -40,3 +40,5 @@
 /config/credentials/environment_name.key
 
 /.env
+
+/public/uploads/characters

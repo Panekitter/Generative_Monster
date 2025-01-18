@@ -1,7 +1,7 @@
 class DalleService
   def self.generate_image(appearance)
     prompt = <<~PROMPT
-      あなたはプロのアーティストです。以下の特徴に基づいて、キャラクターの高品質なデジタルイラストを、アメコミ風のスタイルで描いてください：
+      You are a professional artist. Create a high-quality illustration of a character in a Nintendo-inspired style, including a vibrant background that complements the character's traits based on the description:
       #{appearance}
     PROMPT
     puts "DALL·E API Request: #{prompt}" # デバッグ出力
@@ -9,10 +9,7 @@ class DalleService
     response = client.images.generate(
       parameters: {
         prompt: prompt,
-        model: "dall-e-3",
-        size: "1024x1024",
-        quality: "standard",
-        n: 1
+        size: "256x256",
       }
     )
   

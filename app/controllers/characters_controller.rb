@@ -71,6 +71,6 @@ class CharactersController < ApplicationController
   def destroy
     @character = Character.find(params[:id])
     @character.destroy!
-    redirect_to characters_path, notice: "キャラクターを削除しました。"
+    redirect_to user_characters_path(current_user), notice: "キャラクターを削除しました。"
   end
 end

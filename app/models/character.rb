@@ -1,6 +1,8 @@
 class Character < ApplicationRecord
   mount_uploader :image, CharacterImageUploader
 
+  before_destroy :remove_image!
+
   belongs_to :user
   has_many :skills, dependent: :destroy
   has_many :battles_as_character_1, class_name: 'Battle', foreign_key: :character_1_id
@@ -13,4 +15,12 @@ class Character < ApplicationRecord
   validates :strength, presence: true
   validates :intelligence, presence: true
   # validates :image, presence: true
+
+  private
+
+  def remove_image!
+    image.remove! if image.present?
+  rescue => e
+    Rails.logger.error("Failed to remove image: #{e.message}")
+  end
 end

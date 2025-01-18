@@ -16,7 +16,7 @@
   </div>
   <div class="flex flex-col justify-between items-center p-4">
     <p class="mb-4">これまでに作ったキャラクターを選択し、バトルに挑もう！</p>
-    <button class="btn btn-primary w-full">キャラー一覧</button>
+    <%= link_to "キャラー一覧", user_characters_path(current_user), class: "btn btn-primary w-full" %>
   </div>
   <div class="flex flex-col justify-between items-center p-4">
     <p class="mb-4">これまでの戦闘結果を確認して、次の戦略を考えよう！</p>
