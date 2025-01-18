@@ -26,6 +26,6 @@ Rails.application.routes.draw do
   resources :characters, only: [:new, :create, :show, :update, :destroy]
 
   # バトル関連（独立したバトル操作）
-  resources :battles, only: [:create, :show]
+  resources :battles, only: [:new, :create, :show]
 
 end

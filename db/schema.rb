@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_12_060102) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_18_060429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "battles", force: :cascade do |t|
     t.integer "character_1_id"
     t.integer "character_2_id"
-    t.integer "winner_id"
     t.text "event", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "winner_name"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -56,7 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_12_060102) do
 
   add_foreign_key "battles", "characters", column: "character_1_id", on_delete: :nullify
   add_foreign_key "battles", "characters", column: "character_2_id", on_delete: :nullify
-  add_foreign_key "battles", "characters", column: "winner_id", on_delete: :nullify
   add_foreign_key "characters", "users"
   add_foreign_key "skills", "characters"
 end

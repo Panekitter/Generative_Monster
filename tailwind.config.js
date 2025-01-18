@@ -1,23 +1,19 @@
 module.exports = {
   content: [
-    './app/views/**/*.html.erb',
+    './app/**/*.html.erb',
     './app/helpers/**/*.rb',
-    './app/assets/stylesheets/**/*.css',
-    './app/javascript/**/*.js'
+    './app/javascript/**/*.js',
+    './app/views/**/*',
   ],
   theme: {
     extend: {
       fontFamily: {
-        logo: ['Orbitron', "sans-serif"]
-      }
-    }
+        logo: ['Orbitron', 'sans-serif'],
+      },
+    },
   },
-  plugins: [
-    require('daisyui')
-  ],
+  plugins: [require('daisyui')],
   daisyui: {
-    themes: [
-      "bumblebee"
-    ],
+    themes: ["retro", "bumblebee"], // 必要なテーマをここに列挙
   },
-}
+};
