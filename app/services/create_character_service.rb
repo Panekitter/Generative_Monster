@@ -11,12 +11,12 @@ class CreateCharacterService
       「#{description}」 
       上記のdescription_from_userに基づいて「#{type}」を考案し、name_of_character, description_of_character, appearance_of_character, HP, agility, strength, intelligence, name_of_skill_A, description_of_skill_A, name_of_skill_B, description_of_skill_B, name_of_skill_C, description_of_skill_CをJSON形式のみで返してください。 
       - これらはすべて必須項目です。
+      - 必ず、HP、agility、strength、intelligenceは数字、appearance_of_characterは英語、name_of_character、description_of_characterは日本語で書いてください。 
       - name_of_characterは、可能な限りひねった名前を考えてください。
-      - description_of_characterは100~200文字、appearance_of_characterは50~120文字、description_of_skillは10~50文字で書いてください。 
+      - description_of_characterは200~300文字、appearance_of_characterは100~200文字、description_of_skillは10~50文字で書いてください。 
       - description_of_characterは、description_from_userから判断して、弱そうなキャラクターの場合は弱そうな説明にし、強そうなキャラクターの場合は強そうな説明にしてください。
       - HP、agility、strength、intelligenceの合計値の最大値は600です。判断基準は、弱いキャラクターは合計値が300未満、強いキャラクターは合計値が301以上です。
       - description_of_characterに性別に関する記述が含まれている場合、appearance_of_characterでも性別がわかるようにしてください。
-      - HP、agility、strength、intelligenceはすべて数字、それ以外はすべて日本語の文章で書いてください。 
     PROMPT
 
     begin

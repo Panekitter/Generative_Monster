@@ -11,6 +11,7 @@ CarrierWave.configure do |config|
     config.fog_public     = true
     config.fog_attributes = { 'Cache-Control' => "max-age=315576000" } # ACLを明示的に指定しない
     config.cache_storage  = :fog
+    config.remove_previously_stored_files_after_update = true
   else
     config.storage = :file
     config.root = Rails.root.join("public") # ローカル保存用のパス
