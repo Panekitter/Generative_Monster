@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html class="h-full" data-theme="retro">
   <head>
     <title>GENEARENA</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,7 +26,7 @@
         </div>
       </div>
       <% flash.each do |type, message| %>
-        <div class="p2 text-center text-white <%= type == 'alert' ? 'bg-red-500' : 'bg-green-500' %>">
+        <div class="p-2 text-center text-white <%= type == 'alert' ? 'bg-red-500' : 'bg-green-500' %>">
           <%= message %>
         </div>
       <% end %>

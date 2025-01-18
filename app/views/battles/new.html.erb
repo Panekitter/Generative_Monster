@@ -1,0 +1,62 @@
+<div class="container mx-auto p-6">
+  <!-- ページタイトル -->
+  <h1 class="text-3xl md:text-4xl font-bold text-center mb-6">マッチしました！</h1>
+  <p class="text-center text-lg text-gray-600 mb-6">
+    相手が使用するスキル（<span style="text-red-500">赤色</span>）に合わせて、使用するスキルを選んでください
+  </p>
+
+  <!-- キャラクター情報 -->
+  <div class="flex flex-col md:flex-row justify-center gap-8">
+    <!-- キャラA情報 -->
+    <div class="w-full md:w-1/2">
+      <div class="card bg-base-100 shadow-md">
+        <div class="card-body">
+          <div class="flex items-center mb-4">
+            <img src="<%= @user_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @user_character.name %>" class="w-24 h-24 rounded mr-4">
+            <div>
+              <h2 class="card-title text-xl font-bold"><%= @user_character.name %></h2>
+              <p class="text-gray-500">user_<%= @user_character.user.id %></p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4"><%= @user_character.description %></p>
+          <h3 class="font-semibold mb-2">スキルを選択してください:</h3>
+          <%= form_with url: battles_path, method: :post, local: true, class: "space-y-4" do |f| %>
+            <%= hidden_field_tag :user_character_id, @user_character.id %>
+            <%= hidden_field_tag :opponent_character_id, @opponent_character.id %>
+            <%= hidden_field_tag :opponent_skill, @opponent_skill.name %>
+            <% @user_character.skills.each do |skill| %>
+              <div class="form-control">
+                <label class="cursor-pointer flex items-center space-x-2">
+                  <%= radio_button_tag :user_skill, skill.name, false, id: "user_skill_#{skill.id}", class: "radio radio-primary" %>
+                  <span class="label-text"><strong><%= skill.name %>:</strong> <%= skill.description %></span>
+                </label>
+              </div>
+            <% end %>
+            <div class="text-center mt-6">
+              <%= submit_tag "使用するスキルを確定", class: "btn btn-primary btn-wide" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- キャラB情報 -->
+    <div class="w-full md:w-1/2">
+      <div class="card bg-base-100 shadow-md">
+        <div class="card-body">
+          <div class="flex items-center mb-4">
+            <img src="<%= @opponent_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @opponent_character.name %>" class="w-24 h-24 rounded mr-4">
+            <div>
+              <h2 class="card-title text-xl font-bold"><%= @opponent_character.name %></h2>
+              <p class="text-gray-500">user_<%= @opponent_character.user.id %></p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4"><%= @opponent_character.description %></p>
+          <h3 class="font-semibold mb-2">相手のスキル:</h3>
+          <%= @opponent_skill.name %>
+          <%= @opponent_skill.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
