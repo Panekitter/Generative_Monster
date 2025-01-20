@@ -1,23 +1,4 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
 # Generative_Monster
 ■サービス概要
 # どんなサービスなのかを３行で説明してください。
@@ -74,6 +55,4 @@ MVPリリース時に作っていたいもの
 広告関連: Google AdMob
 生成AI関連 OpenAI API
 SNS共有関連: APIは使用せず、文章と生成したキャラへの詳細ページURLを共有するようにしたい
-* Deployment instructions
 
-* ...
