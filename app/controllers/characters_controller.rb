@@ -2,7 +2,6 @@ class CharactersController < ApplicationController
   def index
     user = User.find(params[:user_id])
     @characters = user.characters.includes(:skills)
-    render json: @characters.as_json(include: :skills)
   end
 
   def new
@@ -61,11 +60,6 @@ class CharactersController < ApplicationController
   def show
     @character = Character.find(params[:id])
     @skills = @character.skills
-  end
-
-  def index
-    user = User.find(params[:user_id])
-    @characters = user.characters.includes(:skills)
   end
 
   def destroy

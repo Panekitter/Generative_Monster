@@ -13,6 +13,7 @@ class CreateCharacterService
       - これらはすべて必須項目です。
       - 必ず、HP、agility、strength、intelligenceは数字、appearance_of_characterは英語、name_of_character、description_of_characterは日本語で書いてください。 
       - name_of_characterは、可能な限りひねった名前を考えてください。
+      - スキルはすべて、サポートスキルではなく単独で使用する前提のスキルにしてください。
       - description_of_characterは200~300文字、appearance_of_characterは100~200文字、description_of_skillは10~50文字で書いてください。 
       - description_of_characterは、description_from_userから判断して、弱そうなキャラクターの場合は弱そうな説明にし、強そうなキャラクターの場合は強そうな説明にしてください。
       - HP、agility、strength、intelligenceの合計値の最大値は600です。判断基準は、弱いキャラクターは合計値が300未満、強いキャラクターは合計値が301以上です。
@@ -53,12 +54,14 @@ class CreateCharacterService
 
   private
 
-  def upload_to_s3(image_url)
+   def upload_to_s3(image_url)
     uploader = CharacterImageUploader.new
     file = URI.open(image_url)
-  
-    # MiniMagick を使用して JPG に変換
+      
+    puts file
+        
     begin
+        # MiniMagickで処理
       processed_image = MiniMagick::Image.read(file)
       processed_image.format("jpg")
   
@@ -67,20 +70,21 @@ class CreateCharacterService
       temp_file.write(processed_image.to_blob)
       temp_file.rewind
   
-      uploader.store!(temp_file) # CarrierWaveでアップロード
+      uploader.store!(temp_file)
       temp_file.close
       temp_file.unlink
   
-      Rails.logger.info("Uploaded Image URL: #{uploader.url}") # デバッグ出力
+      Rails.logger.info("Uploaded Image URL: #{uploader.url}")
   
+       # ローカル環境ではローカルのパス、本番環境ではS3のURLを返す
       if Rails.env.production?
-        uploader.url # S3の場合は公開URLを返す
+          uploader.url
       else
-        "/uploads/characters/#{uploader.filename}" # ローカル環境の場合は相対パスを返す
+          "/uploads/characters/#{uploader.filename}"
       end
-    rescue => e
+     rescue => e
       Rails.logger.error("Image processing or upload failed: #{e.message}")
-      nil # アップロード失敗時はnilを返す
+      nil
     end
-  end  
+  end
 end
