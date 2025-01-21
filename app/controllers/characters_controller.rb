@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   def index
-    user = User.find(params[:user_id])
-    @characters = user.characters.includes(:skills)
+    @user = User.find(params[:user_id])
+    @characters = @user.characters.includes(:skills)
   end
 
   def new
@@ -63,7 +63,7 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    @character = Character.find(params[:id])
+    @character = current_user.characters.find_by(id: params[:id])
     @character.destroy!
     redirect_to user_characters_path(current_user), notice: "キャラクターを削除しました。"
   end

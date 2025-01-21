@@ -1,8 +1,12 @@
-<div class="container mx-auto p-6">
+<div class="container mx-auto">
   <h1 class="text-4xl font-bold text-center mb-6">戦闘結果</h1>
 
   <div class="bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-2xl font-semibold mb-4">勝者: <%= @battle.winner_name %></h2>
+    <div class="flex justify-center mb-4">
+      <% winner_character = @battle.winner_name == @battle.character_1&.name ? @battle.character_1 : @battle.character_2 %>
+      <%= image_tag(winner_character.image? ? winner_character.image.url : "https://placehold.jp/150x150.png", alt: winner_character.name, class: "w-32 h-32 rounded-2xl object-cover shadow-lg") %>
+    </div>
+    <h2 class="text-2xl text-center font-semibold mb-4">勝者: <%= @battle.winner_name %></h2>
     <p class="text-gray-700 mb-4"><%= simple_format(@battle.event) %></p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,14 +1,14 @@
-<div class="container mx-auto p-6">
+<div class="container mx-auto p-2 md:p-6">
   <h1 class="text-3xl font-bold text-center mb-6">戦闘履歴</h1>
 
   <% if @battles.any? %>
     <div class="overflow-x-auto">
-      <table class="table w-full">
+      <table class="table table-xs md:table-md w-full">
         <thead>
           <tr>
-            <th>日付</th>
-            <th>自分のキャラクター</th>
-            <th>相手のキャラクター</th>
+            <th>日時</th>
+            <th>自分</th>
+            <th>相手</th>
             <th>結果</th>
           </tr>
         </thead>
