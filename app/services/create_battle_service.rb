@@ -19,13 +19,15 @@ class CreateBattleService
       キャラB
       #{character_b.to_json}
 
-      この2体のキャラクターを戦わせ、result, eventを必ずJSON形式のみで返してください。 
+      この2体のキャラクターを戦わせ、result, eventを必ずJSON形式のみで返してください。
       これらはすべて必須項目です。
-      キャラAについては選択されたスキル「#{character_a['skill']}」のみを使用してください。
-      キャラBについては選択されたスキル「#{character_b['skill']}」のみを使用してください。
-      resultは勝ったキャラのname_of_characterを返してください。
+      キャラAについては選択されたスキル「#{character_a[:skill][:name]}」のみを使用してください。
+      キャラBについては選択されたスキル「#{character_b[:skill][:name]}」のみを使用してください。
+      resultは勝ったキャラを「A」または「B」として返してください。
       eventは戦闘中のストーリーを、物語形式で300～600文字の文章で日本語で書いてください。
     PROMPT
+
+    puts prompt
 
     response = @client.chat(
       parameters: {

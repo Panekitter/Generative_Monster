@@ -1,4 +1,4 @@
-<div class="container mx-auto p-2 md:p-6">
+<div class="container mx-auto">
   <!-- ページタイトル -->
   <h1 class="text-3xl md:text-4xl font-bold text-center mb-6">マッチしました！</h1>
   <p class="text-center text-lg text-gray-600 mb-6">
@@ -11,7 +11,7 @@
       <div class="card bg-base-100 shadow-md">
         <div class="card-body">
           <div class="flex items-center mb-4">
-            <img src="<%= @opponent_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @opponent_character.name %>" class="w-24 h-24 rounded mr-4">
+            <img src="<%= @opponent_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @opponent_character.name %>" class="w-24 h-24 rounded-xl mr-4">
             <div>
               <h2 class="card-title text-xl font-bold"><%= @opponent_character.name %></h2>
               <p class="text-gray-500">user_<%= @opponent_character.user.id %></p>
@@ -29,7 +29,7 @@
       <div class="card bg-base-100 shadow-md">
         <div class="card-body">
           <div class="flex items-center mb-4">
-            <img src="<%= @user_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @user_character.name %>" class="w-24 h-24 rounded mr-4">
+            <img src="<%= @user_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @user_character.name %>" class="w-24 h-24 rounded-xl mr-4">
             <div>
               <h2 class="card-title text-xl font-bold"><%= @user_character.name %></h2>
               <p class="text-gray-500">user_<%= @user_character.user.id %></p>
@@ -40,11 +40,11 @@
           <%= form_with url: battles_path, method: :post, local: true, class: "space-y-4" do |f| %>
             <%= hidden_field_tag :user_character_id, @user_character.id %>
             <%= hidden_field_tag :opponent_character_id, @opponent_character.id %>
-            <%= hidden_field_tag :opponent_skill, @opponent_skill.name %>
+            <%= hidden_field_tag :opponent_skill_id, @opponent_skill.id %>
             <% @user_character.skills.each do |skill| %>
               <div class="form-control">
                 <label class="cursor-pointer flex items-center space-x-2">
-                  <%= radio_button_tag :user_skill, skill.name, false, id: "user_skill_#{skill.id}", class: "radio radio-primary" %>
+                  <%= radio_button_tag :user_skill_id, skill.id, false, id: "user_skill_#{skill.id}", class: "radio radio-primary", required: true %>
                   <span class="label-text"><strong><%= skill.name %>:</strong> <%= skill.description %></span>
                 </label>
               </div>

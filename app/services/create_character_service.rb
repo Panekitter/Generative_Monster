@@ -38,7 +38,8 @@ class CreateCharacterService
       raw_content = response.dig("choices", 0, "message", "content")
       character_data = JSON.parse(raw_content)
 
-      image_url = DalleService.generate_image(character_data["appearance_of_character"])
+      image_prompt = generate_image_prompt(character_data["appearance_of_character"], type)
+      image_url = DalleService.generate_image(image_prompt)
 
       puts "Generated Image URL: #{image_url}" # デバッグ出力
 
@@ -86,5 +87,19 @@ class CreateCharacterService
       Rails.logger.error("Image processing or upload failed: #{e.message}")
       nil
     end
+  end
+
+  def generate_image_prompt(appearance, type)
+    type_description = case type
+                       when "モンスター" then "a monster"
+                       when "ヒーロー" then "a hero"
+                       when "ロボット" then "a robot"
+                       else "a character"
+                       end
+  
+    <<~PROMPT
+      You are a professional artist. Create a high-quality illustration of #{type_description} in a Nintendo-inspired style, including a vibrant background that complements the character's traits based on the description:
+      #{appearance}
+    PROMPT
   end
 end

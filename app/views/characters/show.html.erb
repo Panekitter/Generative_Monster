@@ -1,13 +1,18 @@
-<div class="p-6 bg-base-100 rounded-lg shadow-md">
+<div class="p-4 md:p-6 bg-base-100 rounded-lg shadow-md">
   <!-- キャラクター画像 -->
   <div class="mb-6 flex justify-center">
-    <img src="<%= @character.image.url %>" alt="<%= @character.name %>" class="rounded-lg shadow-md w-64 h-64 object-cover">
+    <img src="<%= @character.image.url %>" alt="<%= @character.name %>" class="rounded-2xl shadow-md w-64 h-64 object-cover">
 
   </div>
 
   <!-- キャラクター情報 -->
-  <h1 class="text-3xl font-bold mb-4"><%= @character.name %></h1>
-  <p class="text-lg mb-2">
+  <h1 class="text-3xl font-bold"><%= @character.name %></h1>
+  <% if @character.user != current_user %>
+    <p class="text-gray-600">
+      by <strong><%= @character.user.name %></strong>
+    </p>
+  <% end %>
+  <p class="text-lg mt-4 mb-2">
     <strong class="font-semibold">説明:</strong> <%= @character.description %>
   </p>
   <p class="text-lg mb-2">
@@ -35,8 +40,14 @@
 
   <!-- ボタン -->
   <div class="mt-6 flex space-x-4">
-    <%= link_to "バトル開始！", new_battle_path(user_character_id: @character.id), class: "btn btn-primary" %>
+    <% if @character.user == current_user %>
+      <%= link_to "バトル開始！", new_battle_path(user_character_id: @character.id), class: "btn btn-primary" %>
+    <% end %>
     <button class="btn btn-outline btn-secondary">共有</button>
-    <%= link_to "キャラー一覧", user_characters_path(current_user), class: "btn btn-outline btn-secondary" %>
+    <% if @character.user == current_user %>
+      <%= link_to "キャラ一覧", user_characters_path(@character.user), class: "btn btn-outline btn-secondary" %>
+    <% else %>
+      <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn btn-outline btn-secondary" %>
+    <% end %>
   </div>
 </div>
