@@ -1,0 +1,41 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center mb-6">戦闘履歴</h1>
+
+  <% if @battles.any? %>
+    <div class="overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>自分のキャラクター</th>
+            <th>相手のキャラクター</th>
+            <th>結果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @battles.each do |battle| %>
+            <tr class="hover:bg-gray-100">
+                <td><%= link_to battle.created_at.strftime('%Y-%m-%d %H:%M'), battle_path(battle), class: "block p-2" %></td>
+                <td><%= link_to battle.character_1.name, battle_path(battle), class: "block p-2" if battle.character_1 %></td>
+                <td><%= link_to battle.character_2.name, battle_path(battle), class: "block p-2" if battle.character_2 %></td>
+                <td>
+                  <%= link_to battle_path(battle), class: "block p-2" do %>
+                      <span class="<%= battle.winner_name == battle.character_1&.name ? 'text-green-500' : 'text-red-500' %> font-bold">
+                      <%= battle.winner_name == battle.character_1&.name ? '勝利' : '敗北' %>
+                      </span>
+                  <% end %>
+                </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ページネーション -->
+    <div>
+      <%= paginate @battles, theme: 'tailwind_2' %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-500">戦闘履歴がありません。</p>
+  <% end %>
+</div>

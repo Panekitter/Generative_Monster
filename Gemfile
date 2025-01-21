@@ -91,3 +91,7 @@ gem 'mini_magick'
 
 # OpenAI API用
 gem "ruby-openai"
+
+gem 'kaminari'
+
+gem 'rails-i18n'
