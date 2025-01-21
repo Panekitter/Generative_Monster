@@ -35,4 +35,9 @@ class BattlesController < ApplicationController
   def show
     @battle = Battle.find(params[:id])
   end
+
+  def index
+    user = User.find(session[:user_id])
+    @battles = Battle.where(character_1: user.characters).includes(:character_1, :character_2).order(created_at: :desc).page(params[:page]).per(10)
+  end
 end

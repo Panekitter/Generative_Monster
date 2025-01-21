@@ -1,4 +1,4 @@
-<div class="container mx-auto max-w-xl p-6 bg-base-200 rounded-lg shadow-lg">
+<div class="container mx-auto max-w-xl p-6 mx- bg-base-200 rounded-lg shadow-lg">
   <h1 class="text-2xl font-bold text-center mb-6">キャラクター生成フォーム</h1>
 
   <%= form_with url: characters_path, method: :post, local: true, class: "space-y-4" do |f| %>
@@ -21,9 +21,5 @@
       <%= submit_tag "キャラクターを生成", class: "btn btn-primary w-full" %>
     </div>
   <% end %>
-
-  <!-- キャラクター一覧に戻るリンク -->
-  <div class="mt-4 text-center">
-    <%= link_to "キャラクター一覧に戻る", user_characters_path(current_user), class: "btn btn-outline w-full" %>
   </div>
 </div>

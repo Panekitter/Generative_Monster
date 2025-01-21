@@ -2,33 +2,38 @@
   <h1 class="text-3xl font-bold text-center mb-6">戦闘履歴</h1>
 
   <% if @battles.any? %>
-    <table class="table-auto w-full border-collapse border border-gray-300">
-      <thead>
-        <tr class="bg-gray-100">
-          <th class="border border-gray-300 p-2">日付</th>
-          <th class="border border-gray-300 p-2">自分のキャラクター</th>
-          <th class="border border-gray-300 p-2">相手のキャラクター</th>
-          <th class="border border-gray-300 p-2">結果</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @battles.each do |battle| %>
+    <div class="overflow-x-auto">
+      <table class="table w-full">
+        <thead>
           <tr>
-            <td class="border border-gray-300 p-2"><%= battle.created_at.strftime('%Y-%m-%d %H:%M') %></td>
-            <td class="border border-gray-300 p-2"><%= battle.character_1.name if battle.character_1 %></td>
-            <td class="border border-gray-300 p-2"><%= battle.character_2.name if battle.character_2 %></td>
-            <td class="border border-gray-300 p-2">
-              <span class="<%= battle.winner_name == battle.character_1&.name ? 'text-green-500' : 'text-red-500' %> font-bold">
-                <%= battle.winner_name == battle.character_1&.name ? '勝利' : '敗北' %>
-            </td>
+            <th>日付</th>
+            <th>自分のキャラクター</th>
+            <th>相手のキャラクター</th>
+            <th>結果</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @battles.each do |battle| %>
+            <tr class="hover:bg-gray-100">
+                <td><%= link_to battle.created_at.strftime('%Y-%m-%d %H:%M'), battle_path(battle), class: "block p-2" %></td>
+                <td><%= link_to battle.character_1.name, battle_path(battle), class: "block p-2" if battle.character_1 %></td>
+                <td><%= link_to battle.character_2.name, battle_path(battle), class: "block p-2" if battle.character_2 %></td>
+                <td>
+                  <%= link_to battle_path(battle), class: "block p-2" do %>
+                      <span class="<%= battle.winner_name == battle.character_1&.name ? 'text-green-500' : 'text-red-500' %> font-bold">
+                      <%= battle.winner_name == battle.character_1&.name ? '勝利' : '敗北' %>
+                      </span>
+                  <% end %>
+                </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
     <!-- ページネーション -->
-    <div class="mt-6">
-      <%= paginate @battles %>
+    <div>
+      <%= paginate @battles, theme: 'tailwind_2' %>
     </div>
   <% else %>
     <p class="text-center text-gray-500">戦闘履歴がありません。</p>
