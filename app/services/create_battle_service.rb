@@ -27,7 +27,7 @@ class CreateBattleService
       eventは戦闘中のストーリーを、物語形式で300～600文字の文章で日本語で書いてください。
     PROMPT
 
-    puts prompt
+    puts "Create Battle Prompt: #{prompt}" # デバッグ出力
 
     response = @client.chat(
       parameters: {
