@@ -20,6 +20,8 @@ class CreateCharacterService
       - description_of_characterに性別に関する記述が含まれている場合、appearance_of_characterでも性別がわかるようにしてください。
     PROMPT
 
+    puts "Create Character Prompt: #{prompt}" # デバッグ出力
+
     begin
       response = @openai.chat(
         parameters: {
