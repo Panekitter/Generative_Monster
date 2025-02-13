@@ -6,13 +6,14 @@ on:
   pull_request:
     branches: [ main ]
 env:
-      OPENAI_ACCESS_TOKEN: ${{ secrets.OPENAI_ACCESS_TOKEN }}
+  OPENAI_ACCESS_TOKEN: ${{ secrets.OPENAI_ACCESS_TOKEN }}
 jobs:
   test:
     runs-on: ubuntu-latest
     services:
       db:
         image: postgres:13
+        hostname: db
         ports:
           - 5432:5432
         env:
