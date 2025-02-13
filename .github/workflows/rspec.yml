@@ -7,6 +7,8 @@ on:
     branches: [ main ]
 env:
   OPENAI_ACCESS_TOKEN: ${{ secrets.OPENAI_ACCESS_TOKEN }}
+  DATABASE_HOST: localhost   # ここでグローバルに設定
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -43,7 +45,7 @@ jobs:
           PGPASSWORD: password
         run: |
           for i in {1..10}; do
-            if pg_isready -h localhost -p 5432 -U postgres; then
+            if pg_isready -h $DATABASE_HOST -p 5432 -U postgres; then
               echo "PostgreSQL is ready!"
               exit 0
             fi
@@ -56,7 +58,6 @@ jobs:
       - name: Setup database
         env:
           RAILS_ENV: test
-          DATABASE_HOST: localhost
           PGUSER: postgres
           PGPASSWORD: password
         run: |
@@ -66,5 +67,4 @@ jobs:
       - name: Run RSpec tests
         env:
           RAILS_ENV: test
-          DATABASE_HOST: localhost
         run: bundle exec rspec
