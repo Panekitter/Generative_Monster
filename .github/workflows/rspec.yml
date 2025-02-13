@@ -10,6 +10,7 @@ env:
 jobs:
   test:
     runs-on: ubuntu-lates
+
     services:
       db:
         image: postgres:13
