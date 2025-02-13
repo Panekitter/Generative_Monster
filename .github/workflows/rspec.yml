@@ -13,7 +13,6 @@ jobs:
     services:
       db:
         image: postgres:13
-        hostname: db
         ports:
           - 5432:5432
         env:
