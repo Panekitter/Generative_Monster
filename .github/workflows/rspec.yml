@@ -37,6 +37,13 @@ jobs:
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
+      
+      - name: Wait for Postgres to be ready
+        run: |
+          until pg_isready -h db -p 5432 -U postgres; do
+            echo "Waiting for Postgres to be ready..."
+            sleep 2
+          done
 
       - name: Setup database
         env:
