@@ -31,12 +31,8 @@ jobs:
         uses: actions/checkout@v2
       - name: bundler set up
         run: |
-          gem install bundler
-          bundle install
-      - name: install node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
+          gem install bundler -v 2.4.22
+          bundle _2.4.22_ install
 
       - name: db migrate
         run: |
