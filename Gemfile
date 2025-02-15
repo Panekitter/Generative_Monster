@@ -96,3 +96,5 @@ gem "ruby-openai"
 gem 'kaminari'
 
 gem 'rails-i18n'
+
+gem 'importmap-rails'
