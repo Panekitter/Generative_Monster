@@ -9,7 +9,7 @@ jobs:
     # This job runs on Linux
     runs-on: ubuntu-latest
     services:
-      postgres:
+      db:
         image: postgres:12
         ports:
           - 5432:5432
