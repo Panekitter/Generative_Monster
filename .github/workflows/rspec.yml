@@ -42,8 +42,9 @@ jobs:
           gem install bundler -v 2.4.22
           bundle _2.4.22_ install
 
-      - name: db migrate
+      - name: Setup database
         run: |
+          bundle exec rails db:create
           bundle exec rails db:migrate
 
       - name: verify
