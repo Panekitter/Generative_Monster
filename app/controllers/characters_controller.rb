@@ -1,4 +1,6 @@
 class CharactersController < ApplicationController
+  skip_before_action :logged_in?, only: [:og_image_page, :og_image]
+
   def index
     @user = User.find(params[:user_id])
     @characters = @user.characters.includes(:skills)
@@ -60,11 +62,37 @@ class CharactersController < ApplicationController
   def show
     @character = Character.find(params[:id])
     @skills = @character.skills
+
+    set_meta_tags(
+      title: @character.name,
+      description: @character.description,
+      og: {
+        title: @character.name,
+        description: @character.description,
+        type: 'website',
+        image: og_image_character_url(@character)
+      }
+    )
   end
 
   def destroy
     @character = current_user.characters.find_by(id: params[:id])
     @character.destroy!
     redirect_to user_characters_path(current_user), notice: "キャラクターを削除しました。"
+  end
+
+  def og_image
+    @character = Character.find(params[:id])
+
+    og_page_url = og_image_page_character_url(@character)
+
+    image_data = `node #{Rails.root.join('public', 'scripts', 'character_og_image_generator.js')} #{og_page_url}`
+
+    send_data image_data, type: 'image/png', disposition: 'inline'
+  end
+
+  def og_image_page
+    @character = Character.find(params[:id])
+    render layout: 'og_layout'
   end
 end

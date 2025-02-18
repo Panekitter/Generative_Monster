@@ -1,0 +1,14 @@
+<div style="width: 1200px; height: 630px; position: relative; background: #ffffff;">
+  <!-- キャラクターの画像など -->
+  <div style="position: absolute; left: 20px; top: 20px;">
+    <img src="<%= @character.image %>" alt="サムネイル" style="width:200px; height:200px; object-fit:cover;">
+  </div>
+  
+  <!-- テキスト類 -->
+  <div style="position: absolute; left: 240px; top: 20px; color: #000;">
+    <h1 style="font-size: 40px;"><%= @character.name %></h1>
+    <p style="font-size: 20px; width: 600px;">
+      <%= @character.description.truncate(50) %>
+    </p>
+  </div>
+</div>

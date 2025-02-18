@@ -2,7 +2,7 @@ FROM ruby:3.2.2
 
 # 必要なパッケージのインストール
 RUN apt-get update -qq \
- && apt-get install -y nodejs postgresql-client npm vim \
+ && apt-get install -y nodejs postgresql-client npm vim chromium fonts-noto-cjk \
  && rm -rf /var/lib/apt/lists/* \
  && npm install --global yarn
 

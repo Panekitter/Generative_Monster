@@ -93,6 +93,10 @@ gem 'mini_magick'
 # OpenAI API用
 gem "ruby-openai"
 
+# OGP用
+gem 'meta-tags'
+
+#　その他
 gem 'kaminari'
 
 gem 'rails-i18n'

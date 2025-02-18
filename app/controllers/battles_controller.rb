@@ -65,4 +65,14 @@ class BattlesController < ApplicationController
     user = User.find(session[:user_id])
     @battles = Battle.where(character_1: user.characters).includes(:character_1, :character_2).order(created_at: :desc).page(params[:page]).per(10)
   end
+
+  def og_image
+    battle = Battle.find(params[:id])
+
+    battle_url = battle_url(battle)
+
+    image_data = `node #{Rails.root.join('public', 'scripts', 'battle_og_image_generator.js')} #{battle_url}`
+
+    send_data image_data, type: 'image/png', disposition: 'inline'
+  end
 end
