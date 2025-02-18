@@ -29,3 +29,4 @@ const characterUrl = process.argv[2];
 generateCharacterOgImage(characterUrl).then((imageBuffer) => {
   process.stdout.write(imageBuffer);
 });
+
