@@ -45,6 +45,9 @@ RUN chmod +x /usr/bin/entrypoint.sh
 # 非rootユーザーに切り替え
 USER appuser
 
+# Chromeのパスを環境変数として設定
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+
 # ポートの公開
 EXPOSE 3000
 

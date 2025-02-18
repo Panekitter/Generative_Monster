@@ -8,6 +8,7 @@ services:
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     restart: always
+
   web:
     build:
       context: .
@@ -27,5 +28,14 @@ services:
     stdin_open: true
     depends_on:
       - db
+      - node # nodeサービスに依存
+
+  node:
+    image: node:18  # Node.jsのイメージを使用
+    working_dir: /myapp
+    volumes:
+      - .:/myapp  # ホストのコードをコンテナにマウント
+    command: "npm install && npm run build"  # npm install と buildを実行
+
 volumes:
   postgres_volume:
