@@ -1,10 +1,10 @@
-const puppeteer = require('puppeteer');
-const isHeroku = process.env.HEROKU || false;  // HEROKU環境変数が設定されているか確認
+const puppeteer = require('puppeteer-core');  // puppeteer-coreに変更
+const isHeroku = !!process.env.DYNO;  // Heroku環境変数を確認
 
 async function generateCharacterOgImage(characterUrl) {
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: isHeroku ? '/usr/bin/google-chrome-stable' : undefined,  // Heroku環境の場合、Chromiumのパスを設定
+    executablePath: isHeroku ? '/usr/bin/google-chrome-stable' : undefined,  // Heroku環境の場合、Chromeのパスを設定
     args: [
       '--no-sandbox',  // Heroku環境で必須
       '--disable-setuid-sandbox'  // Heroku環境で必須
