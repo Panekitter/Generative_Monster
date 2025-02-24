@@ -16,12 +16,10 @@
     <% if @character || @battle %>
       <!-- OGP画像のURLを条件に応じて設定 -->
       <meta property="og:image" content="<%= 
-        if @character
+        if params[:controller] == 'characters' && params[:action] == 'show'
           og_image_character_url(@character)
-        elsif @battle
+        elsif params[:controller] == 'battles' && params[:action] == 'show'
           og_image_battle_result_url(@battle)
-        else
-          '' # 画像がない場合のデフォルト値
         end %>">
 
       <!-- Twitterカードメタタグ -->
@@ -30,10 +28,10 @@
       <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAを楽しもう！' %>">
       
       <!-- Twitterカード画像のURLを条件に応じて設定 -->
-      <meta name="twitter:image" content="<%= 
-        if @character
+      <meta property="og:image" content="<%= 
+        if params[:controller] == 'characters' && params[:action] == 'show'
           og_image_character_url(@character)
-        elsif @battle
+        elsif params[:controller] == 'battles' && params[:action] == 'show'
           og_image_battle_result_url(@battle)
         end %>">
     <% end %>
