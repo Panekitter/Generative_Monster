@@ -50,4 +50,17 @@
       <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn btn-outline btn-secondary" %>
     <% end %>
   </div>
+  <!-- 共有ボタン -->
+  <div class="mt-6 flex space-x-4">
+    <!-- Facebook 共有ボタン -->
+    <%= link_to "Facebookで共有", "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
+
+    <!-- X (Twitter) 共有ボタン -->
+    <%= link_to "Xで共有", "https://twitter.com/intent/tweet?text=#{@character.name}%0a&url=#{request.url}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
+
+
+    <!-- LINE 共有ボタン -->
+    <%= link_to "LINEで共有", "http://line.me/R/msg/text/?#{@character.name}%0A#{request.url}%0A", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
+
+  </div>
 </div>
