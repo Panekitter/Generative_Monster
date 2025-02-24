@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  skip_before_action :logged_in?, only: [:og_image_page, :og_image]
+  skip_before_action :logged_in?, only: [:index, :show, :og_image_page, :og_image]
 
   def index
     @user = User.find(params[:user_id])

@@ -1,0 +1,14 @@
+<div style="width: 1200px; height: 630px; position: relative; background: #f0f0f0;">
+  <!-- 戦闘結果の画像や背景 -->
+  <div style="position: absolute; left: 20px; top: 20px;">
+    <img src="<%= @battle.image %>" alt="戦闘結果" style="width: 200px; height: 200px; object-fit: cover;">
+  </div>
+
+  <!-- テキスト部分 -->
+  <div style="position: absolute; left: 240px; top: 20px; color: #000;">
+    <h1 style="font-size: 40px;">戦闘結果: <%= @battle.winner %>の勝利</h1>
+    <p style="font-size: 20px; width: 600px;">
+      結果: <%= @battle.result.truncate(100) %>
+    </p>
+  </div>
+</div>

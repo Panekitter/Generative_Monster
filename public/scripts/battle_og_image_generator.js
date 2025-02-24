@@ -1,7 +1,17 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+
+const isHeroku = !!process.env.DYNO;  // Heroku環境変数を確認
 
 async function generateBattleOgImage(battleUrl) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: isHeroku ? '/app/.chrome-for-testing/chrome-linux64/chrome' : '/usr/bin/chromium', // Heroku環境に応じたパスを指定
+    args: [
+      '--no-sandbox',  // Heroku環境で必須
+      '--disable-setuid-sandbox'  // Heroku環境で必須
+    ]
+  });
+
   const page = await browser.newPage();
 
   // 戦闘結果ページにアクセス

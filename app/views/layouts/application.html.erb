@@ -7,6 +7,38 @@
     <%= csp_meta_tag %>
     <%= display_meta_tags %>
 
+    <!-- OGPメタタグ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAを楽しもう！' %>">
+
+    <% if @character || @battle %>
+      <!-- OGP画像のURLを条件に応じて設定 -->
+      <meta property="og:image" content="<%= 
+        if @character
+          og_image_character_url(@character)
+        elsif @battle
+          og_image_battle_result_url(@battle)
+        else
+          '' # 画像がない場合のデフォルト値
+        end %>">
+
+      <!-- Twitterカードメタタグ -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
+      <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAを楽しもう！' %>">
+      
+      <!-- Twitterカード画像のURLを条件に応じて設定 -->
+      <meta name="twitter:image" content="<%= 
+        if @character
+          og_image_character_url(@character)
+        elsif @battle
+          og_image_battle_result_url(@battle)
+        end %>">
+    <% end %>
+
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>

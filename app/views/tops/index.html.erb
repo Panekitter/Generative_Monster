@@ -4,9 +4,9 @@
   <p class="text-base text-gray-600 mt-6 max-w-lg">
     GENEARENAは、言葉ひとつでキャラクターを生み出し、バトルで使うスキルを選んで挑むシンプルなゲーム。選んだ技が勝利へのカギを握り、戦いの物語を紡ぎます。最強の相棒とアリーナを制覇せよ！
   </p>
-  <p class="text-sm text-gray-500 mt-4">※利用にはGoogleアカウントへのログインが必要です</p>
+  <p class="text-sm text-gray-500 mt-4">※ご利用にはGoogleアカウントへのログインが必要です</p>
   <%= button_to "/auth/google_oauth2", method: :post, data: { turbo: false }, class: "btn btn-primary mt-4 text-lg flex items-center" do %>
     <%= image_tag "https://developers.google.com/identity/images/branding_guideline_sample_lt_rd_sl.svg", class: "h-7" %>
-    <span>ログインしてキャラを生成</span>
+    <span>Googleアカウントでログイン</span>
   <% end %>  
 </main>

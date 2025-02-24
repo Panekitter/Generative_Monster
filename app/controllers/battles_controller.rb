@@ -59,6 +59,24 @@ class BattlesController < ApplicationController
 
   def show
     @battle = Battle.find(params[:id])
+
+    # OGP用のメタタグ設定
+    set_meta_tags(
+      title: "戦闘結果 - #{@battle.character_1.name} vs #{@battle.character_2.name}",
+      description: "戦闘結果: #{@battle.event}",
+      og: {
+        title: "戦闘結果 - #{@battle.character_1.name} vs #{@battle.character_2.name}",
+        description: "戦闘結果: #{@battle.event}",
+        type: 'website',
+        image: og_image_battle_result_url(@battle)  # 戦闘結果のOGP画像のURL
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: "戦闘結果 - #{@battle.character_1.name} vs #{@battle.character_2.name}",
+        description: "戦闘結果: #{@battle.event}",
+        image: og_image_battle_result_url(@battle)  # Twitterカード用の画像
+      }
+    )
   end
 
   def index
