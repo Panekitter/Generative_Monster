@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer-core');
 
-const isHeroku = !!process.env.DYNO;  // Heroku環境変数を確認
+const isHeroku = !!process.env.DYNO; // Heroku環境変数を確認
 
 async function generateCharacterOgImage(characterUrl) {
   const browser = await puppeteer.launch({
@@ -14,11 +14,17 @@ async function generateCharacterOgImage(characterUrl) {
 
   const page = await browser.newPage();
 
+  // ✅ ここで 1200x630 のサイズを指定
+  await page.setViewport({ width: 1200, height: 630 });
+
   // キャラクター詳細ページにアクセス
   await page.goto(characterUrl, { waitUntil: 'networkidle0' });
 
-  // スクリーンショットを撮影してバッファとして返す
-  const imageBuffer = await page.screenshot();
+  // ✅ スクリーンショットのサイズを 1200x630 に固定
+  const imageBuffer = await page.screenshot({
+    clip: { x: 0, y: 0, width: 1200, height: 630 },
+    type: 'png'
+  });
 
   await browser.close();
   return imageBuffer;
@@ -29,4 +35,3 @@ const characterUrl = process.argv[2];
 generateCharacterOgImage(characterUrl).then((imageBuffer) => {
   process.stdout.write(imageBuffer);
 });
-
