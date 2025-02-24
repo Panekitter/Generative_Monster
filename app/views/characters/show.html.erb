@@ -43,23 +43,30 @@
     <% if @character.user == current_user %>
       <%= link_to "バトル開始！", new_battle_path(user_character_id: @character.id), class: "btn btn-primary" %>
     <% end %>
-    <button class="btn btn-outline btn-secondary">共有</button>
     <% if @character.user == current_user %>
-      <%= link_to "キャラ一覧", user_characters_path(@character.user), class: "btn btn-outline btn-secondary" %>
+      <%= link_to "キャラ一覧", user_characters_path(@character.user), class: "btn" %>
     <% else %>
-      <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn btn-outline btn-secondary" %>
+      <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn" %>
     <% end %>
+
   </div>
+  <p class="text-lg mt-4 font-bold">
+  共有:
+  </p>
   <!-- 共有ボタン -->
-  <div class="mt-6 flex space-x-4">
+  <div class="mt-2 flex space-x-4">
     <!-- Facebook 共有ボタン -->
-    <%= link_to "Facebookで共有", "https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(request.url)}&quote=#{@character.name}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
-
+    <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", target: "_blank", rel: "noopener noreferrer" do %>
+      <i class="fa-brands fa-facebook fa-3x"></i>
+    <% end %>
     <!-- X (Twitter) 共有ボタン -->
-    <%= link_to "Xで共有", "https://twitter.com/intent/tweet?text=#{@character.name}%0a&url=#{request.url}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
-
+    <%= link_to "https://twitter.com/intent/tweet?text=#{@character.name}%0a&url=#{request.url}", target: "_blank", rel: "noopener noreferrer" do %>
+      <i class="fa-brands fa-x-twitter fa-3x"></i>
+    <% end %>
 
     <!-- LINE 共有ボタン -->
-    <%= link_to "LINEで共有", "http://line.me/R/msg/text/?#{@character.name}%0A#{request.url}%0A", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
+    <%= link_to "http://line.me/R/msg/text/?#{CGI.escape(@character.name)}%0A#{CGI.escape(request.url)}%0A", target: "_blank", rel: "noopener noreferrer" do %>
+      <i class="fa-brands fa-line fa-3x"></i>
+    <% end %>
   </div>
 </div>

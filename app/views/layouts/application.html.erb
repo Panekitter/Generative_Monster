@@ -39,6 +39,8 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   </head>
 
   <body class="flex flex-col min-h-full">
@@ -47,8 +49,33 @@
         <%= link_to "GENEARENA", root_path, class: "link link-hover text-xl md:text-3xl font-logo" %>
         <div>
           <% if current_user %>
-            <%= current_user.name %>さん
-            <%= link_to "ログアウト", log_out_path %>
+
+            <div class="dropdown dropdown-end">
+              <!-- トリガー部分（サムネイルとユーザー名を横並び） -->
+              <div class="flex items-center gap-2">
+                <!-- サムネイルボタン -->
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                  <div class="rounded-full">
+                    <%= image_tag "https://placehold.jp/150x150.png", alt: current_user.name %>
+                  </div>
+                </label>
+                <!-- ユーザー名ボタン -->
+                <label tabindex="0">
+                  <%= current_user.name %>
+                </label>
+              </div>
+              <!-- ドロップダウンコンテンツ -->
+              <div tabindex="0" class="dropdown-content p-4 shadow card card-compact bg-base-100 w-64">
+                <div class="card-body">
+                  <h2 class="font-bold text-lg"><%= current_user.name %>としてログイン中</h2>
+                  <div class="card-actions justify-center">
+                    <%= link_to "ログアウト", log_out_path, method: :delete, class: "btn btn-primary w-full" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           <% else %>
             <%= button_to "/auth/google_oauth2", method: :post, data: { turbo: false }, class:"flex" do %>
               <%= image_tag "https://developers.google.com/identity/images/branding_guideline_sample_lt_sq_lg.svg", alt: "Googleでログイン" %>
@@ -71,9 +98,9 @@
       <div class="container mx-auto text-center text-sm">
         &copy; GENEARENA. All rights reserved.
         <div class="mt-2 flex justify-center space-x-4">
-          <%= link_to "プライバシーポリシー", "#", class: "link link-hover text-gray-400" %>
-          <%= link_to "利用規約", "#", class: "link link-hover text-gray-400" %>
-          <%= link_to "お問い合わせ", "#", class: "link link-hover text-gray-400" %>
+          <%= link_to "プライバシーポリシー", privacy_policy_path, class: "link link-hover text-gray-400" %>
+          <%= link_to "利用規約", terms_of_service_path, class: "link link-hover text-gray-400" %>
+          <%= link_to "お問い合わせ", "https://forms.gle/hbn7uoVey3bFpkaq9", class: "link link-hover text-gray-400" %>
         </div>
       </div>
     </footer>

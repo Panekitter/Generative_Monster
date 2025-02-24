@@ -3,7 +3,7 @@ class CharactersController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @characters = @user.characters.includes(:skills)
+    @characters = @user.characters.includes(:skills).order(created_at: :desc)
   end
 
   def new

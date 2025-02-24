@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   root "tops#home"
   get 'dashboard', to: 'tops#dashboard'
 
+  # 利用規約とプライバシーポリシー
+  get 'terms_of_service', to: 'tops#terms_of_service'
+  get 'privacy_policy', to: 'tops#privacy_policy'
+
   #セッション、ログイン関係
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
