@@ -70,7 +70,7 @@ class CharactersController < ApplicationController
         title: @character.name,
         description: @character.description,
         type: 'website',
-        image: og_image_character_url(@character)
+        image: og_image_page_character_url(@character)
       }
     )
   end

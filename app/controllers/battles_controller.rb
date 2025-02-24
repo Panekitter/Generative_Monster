@@ -1,4 +1,6 @@
 class BattlesController < ApplicationController
+  skip_before_action :logged_in?, only: [:show, :og_image_page, :og_image]
+
   def new
     @user_character = current_user.characters.find(params[:user_character_id])
     other_users_characters = Character.where.not(user_id: current_user.id)
@@ -68,13 +70,7 @@ class BattlesController < ApplicationController
         title: "戦闘結果 - #{@battle.character_1.name} vs #{@battle.character_2.name}",
         description: "戦闘結果: #{@battle.event}",
         type: 'website',
-        image: og_image_battle_result_url(@battle)  # 戦闘結果のOGP画像のURL
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: "戦闘結果 - #{@battle.character_1.name} vs #{@battle.character_2.name}",
-        description: "戦闘結果: #{@battle.event}",
-        image: og_image_battle_result_url(@battle)  # Twitterカード用の画像
+        image: og_image_battle_url(@battle)  # 戦闘結果のOGP画像のURL
       }
     )
   end
@@ -85,12 +81,17 @@ class BattlesController < ApplicationController
   end
 
   def og_image
-    battle = Battle.find(params[:id])
+    @battle = Battle.find(params[:id])
 
-    battle_url = battle_url(battle)
+    battle_og_page_url = og_image_page_battle_url(@battle)
 
-    image_data = `node #{Rails.root.join('public', 'scripts', 'battle_og_image_generator.js')} #{battle_url}`
-
+    image_data = `node #{Rails.root.join('public', 'scripts', 'battle_og_image_generator.js')} #{battle_og_page_url}`
+    
     send_data image_data, type: 'image/png', disposition: 'inline'
+  end
+
+  def og_image_page
+    @battle = Battle.find(params[:id])
+    render layout: 'og_layout'
   end
 end

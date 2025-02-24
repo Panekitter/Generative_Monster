@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
-    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAを楽しもう！' %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAは、言葉ひとつでキャラクターを生み出し、バトルで使うスキルを選んで挑むシンプルなゲーム。選んだ技が勝利へのカギを握り、戦いの物語を紡ぎます。最強の相棒とアリーナを制覇せよ！' %>">
 
     <% if @character || @battle %>
       <!-- OGP画像のURLを条件に応じて設定 -->
@@ -19,20 +19,20 @@
         if params[:controller] == 'characters' && params[:action] == 'show'
           og_image_character_url(@character)
         elsif params[:controller] == 'battles' && params[:action] == 'show'
-          og_image_battle_result_url(@battle)
+          og_image_battle_url(@battle)
         end %>">
 
       <!-- Twitterカードメタタグ -->
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
-      <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAを楽しもう！' %>">
+      <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAは、言葉ひとつでキャラクターを生み出し、バトルで使うスキルを選んで挑むシンプルなゲーム。選んだ技が勝利へのカギを握り、戦いの物語を紡ぎます。最強の相棒とアリーナを制覇せよ！' %>">
       
       <!-- Twitterカード画像のURLを条件に応じて設定 -->
       <meta property="og:image" content="<%= 
         if params[:controller] == 'characters' && params[:action] == 'show'
           og_image_character_url(@character)
         elsif params[:controller] == 'battles' && params[:action] == 'show'
-          og_image_battle_result_url(@battle)
+          og_image_battle_url(@battle)
         end %>">
     <% end %>
 
