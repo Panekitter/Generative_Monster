@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get :og_image_page
     end
   end
+
   # バトル関連（独立したバトル操作）
   resources :battles, only: [:new, :create, :show] do
     member do
