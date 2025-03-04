@@ -50,7 +50,8 @@
               </div>
             <% end %>
             <div class="text-center mt-6">
-              <%= submit_tag "使用するスキルを確定", class: "btn btn-primary btn-wide" %>
+              <%= submit_tag "使用するスキルを確定", class: "btn btn-primary btn-wide",
+                id: "submit-btn", onclick: "setLoadingState()" %>
             </div>
           <% end %>
         </div>

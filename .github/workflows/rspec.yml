@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-    # Job name is Greeting
     name: verify
-    # This job runs on Linux
     runs-on: ubuntu-latest
     services:
       db:
@@ -37,17 +35,28 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: Install system dependencies
+        run: |
+          apt-get update -qq
+          apt-get install -y nodejs npm
+
       - name: bundler set up
         run: |
           gem install bundler -v 2.4.22
           bundle _2.4.22_ install
+
+      - name: Install JavaScript dependencies
+        run: npm install
 
       - name: Setup database
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
 
+      - name: Precompile assets
+        run: bundle exec rake assets:precompile
+
       - name: verify
         run: |
           bundle exec rspec
-

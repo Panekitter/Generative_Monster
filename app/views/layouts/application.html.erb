@@ -5,9 +5,45 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= display_meta_tags %>
+
+    <!-- OGPメタタグ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAは、言葉ひとつでキャラクターを生み出し、バトルで使うスキルを選んで挑むシンプルなゲーム。選んだ技が勝利へのカギを握り、戦いの物語を紡ぎます。最強の相棒とアリーナを制覇せよ！' %>">
+
+    <% if @character || @battle %>
+      <!-- OGP画像のURLを条件に応じて設定 -->
+      <meta property="og:image" content="<%= 
+        if params[:controller] == 'characters' && params[:action] == 'show'
+          og_image_character_url(@character)
+        elsif params[:controller] == 'battles' && params[:action] == 'show'
+          og_image_battle_url(@battle)
+        end %>">
+
+      <!-- Twitterカードメタタグ -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'GENEARENA' %>">
+      <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : 'GENEARENAは、言葉ひとつでキャラクターを生み出し、バトルで使うスキルを選んで挑むシンプルなゲーム。選んだ技が勝利へのカギを握り、戦いの物語を紡ぎます。最強の相棒とアリーナを制覇せよ！' %>">
+      
+      <!-- Twitterカード画像のURLを条件に応じて設定 -->
+      <meta property="og:image" content="<%= 
+        if params[:controller] == 'characters' && params[:action] == 'show'
+          og_image_character_url(@character)
+        elsif params[:controller] == 'battles' && params[:action] == 'show'
+          og_image_battle_url(@battle)
+        end %>">
+    <% end %>
+
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google AdSense コード -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4217706351232626"
+     crossorigin="anonymous"></script>
   </head>
 
   <body class="flex flex-col min-h-full">
@@ -16,8 +52,33 @@
         <%= link_to "GENEARENA", root_path, class: "link link-hover text-xl md:text-3xl font-logo" %>
         <div>
           <% if current_user %>
-            <%= current_user.name %>さん
-            <%= link_to "ログアウト", log_out_path %>
+
+            <div class="dropdown dropdown-end">
+              <!-- トリガー部分（サムネイルとユーザー名を横並び） -->
+              <div class="flex items-center gap-2">
+                <!-- サムネイルボタン -->
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                  <div class="rounded-full">
+                    <%= image_tag "https://placehold.jp/150x150.png", alt: current_user.name %>
+                  </div>
+                </label>
+                <!-- ユーザー名ボタン -->
+                <label tabindex="0">
+                  <%= current_user.name %>
+                </label>
+              </div>
+              <!-- ドロップダウンコンテンツ -->
+              <div tabindex="0" class="dropdown-content p-4 shadow card card-compact bg-base-100 w-64">
+                <div class="card-body">
+                  <h2 class="font-bold text-lg"><%= current_user.name %>としてログイン中</h2>
+                  <div class="card-actions justify-center">
+                    <%= link_to "ログアウト", log_out_path, method: :delete, class: "btn btn-primary w-full" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           <% else %>
             <%= button_to "/auth/google_oauth2", method: :post, data: { turbo: false }, class:"flex" do %>
               <%= image_tag "https://developers.google.com/identity/images/branding_guideline_sample_lt_sq_lg.svg", alt: "Googleでログイン" %>
@@ -40,9 +101,9 @@
       <div class="container mx-auto text-center text-sm">
         &copy; GENEARENA. All rights reserved.
         <div class="mt-2 flex justify-center space-x-4">
-          <%= link_to "プライバシーポリシー", "#", class: "link link-hover text-gray-400" %>
-          <%= link_to "利用規約", "#", class: "link link-hover text-gray-400" %>
-          <%= link_to "お問い合わせ", "#", class: "link link-hover text-gray-400" %>
+          <%= link_to "プライバシーポリシー", privacy_policy_path, class: "link link-hover text-gray-400" %>
+          <%= link_to "利用規約", terms_of_service_path, class: "link link-hover text-gray-400" %>
+          <%= link_to "お問い合わせ", "https://forms.gle/hbn7uoVey3bFpkaq9", class: "link link-hover text-gray-400" %>
         </div>
       </div>
     </footer>

@@ -1,0 +1,79 @@
+<% loser_1_style = "" %>
+<% loser_2_style = "" %>
+
+<% if @battle.winner_name == @battle.character_1.name %>
+  <!-- character_2 が敗者 -->
+  <% loser_2_style = "filter: brightness(20%);" %>
+<% elsif @battle.winner_name == @battle.character_2.name %>
+  <!-- character_1 が敗者 -->
+  <% loser_1_style = "filter: brightness(20%);" %>
+<% end %>
+
+
+<!-- 外枠コンテナ（黄色） -->
+<div style="
+  width: 1200px;
+  height: 630px;
+  background: #FFDC04;  /* お好みの黄色 */
+  position: relative;
+  font-family: sans-serif;
+">
+  <!-- 内枠コンテナ（白、内側だけ丸角） -->
+  <div style="
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: #fff;
+    border-radius: 50px; /* 内側だけ角丸 */
+    overflow: hidden;
+
+    /* 上下分割するためのFlexbox設定 */
+    display: flex;
+    flex-direction: column;
+  ">
+    <!-- 上半分: キャラクター画像を左右に並べる -->
+    <div style="
+      flex: 1;          /* 全体を2分割するうちの1 */
+      display: flex;    /* 左右に2つの画像を配置 */
+      height: 50%;
+    ">
+      <!-- 左側キャラ1 -->
+      <div style="width: 50%; height: 100%;">
+        <img 
+          src="<%= @battle.character_1.image %>" 
+          alt="Character 1" 
+          style="width: 100%; height: 100%; object-fit: cover; <%= loser_1_style %>"
+        >
+      </div>
+      <!-- 右側キャラ2 -->
+      <div style="width: 50%; height: 100%;">
+        <img 
+          src="<%= @battle.character_2.image %>" 
+          alt="Character 2" 
+          style="width: 100%; height: 100%; object-fit: cover; <%= loser_2_style %>"
+        >
+      </div>
+    </div>
+
+    <!-- 下半分: 戦闘結果の文章 -->
+    <div style="
+      flex: 1;  /* 上下2分割のうちのもう1つ */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 縦方向中央揃え */
+      align-items: center;     /* 横方向中央揃え */
+      text-align: center;      /* テキスト中央寄せ */
+      box-sizing: border-box;
+    ">
+    <p style="font-size: 48px; margin: 0 0; color: #555;">
+      <strong>勝者:</strong> <%= @battle.winner_name || "Draw" %>
+    </p>
+    <p style="font-size: 36px; margin: 0 0; color: #555;">
+      <%= @battle.event.truncate(120) %>
+    </p>
+      
+    </div>
+  </div>
+</div>

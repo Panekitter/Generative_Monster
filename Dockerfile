@@ -2,7 +2,7 @@ FROM ruby:3.2.2
 
 # 必要なパッケージのインストール
 RUN apt-get update -qq \
- && apt-get install -y nodejs postgresql-client npm vim \
+ && apt-get install -y nodejs postgresql-client npm vim chromium fonts-noto-cjk \
  && rm -rf /var/lib/apt/lists/* \
  && npm install --global yarn
 
@@ -44,6 +44,9 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 # 非rootユーザーに切り替え
 USER appuser
+
+# Chromeのパスを環境変数として設定
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # ポートの公開
 EXPOSE 3000

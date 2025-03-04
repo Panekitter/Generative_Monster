@@ -92,6 +92,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.1)
       railties (>= 6.0.0)
+    csv (3.3.2)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -129,6 +130,10 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
@@ -170,6 +175,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.22.1)
+      actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
     mime-types (3.6.0)
       logger
@@ -346,11 +353,13 @@ DEPENDENCIES
   debug
   dotenv
   fog-aws
+  httparty
   importmap-rails
   jbuilder
   jsbundling-rails
   kaminari
   loofah
+  meta-tags
   mini_magick
   omniauth-google-oauth2
   omniauth-rails_csrf_protection

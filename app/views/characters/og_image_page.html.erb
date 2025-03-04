@@ -1,0 +1,93 @@
+<!-- 外枠コンテナ（四角形・黄色） -->
+<div style="
+  width: 1200px;
+  height: 630px;
+  background: #FFDC04;
+  position: relative;
+  font-family: sans-serif;
+">
+
+  <!-- 内枠コンテナ（丸角・白） -->
+  <div style="
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: #fff;
+    border-radius: 50px;    /* 内側だけ角丸 */
+    overflow: hidden;
+  ">
+
+    <!-- 左半分: キャラクター画像 -->
+    <div style="
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+    ">
+      <img
+        src="<%= @character.image %>"
+        alt="サムネイル"
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        "
+      >
+    </div>
+
+    <!-- 右半分: Flexbox で上下に分割 -->
+    <div style="
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    ">
+      <!-- 上部コンテンツ -->
+      <div>
+        <h2 style="
+          font-size: 48px;
+          margin-top: 0px;
+          color: #333;
+        ">
+          <%= @character.name.truncate(23) %>
+        </h2>
+
+        <p style="
+          font-size: 36px;
+          margin-top: 0px;
+          color: #555;
+        ">
+          <%= @character.description.truncate(57) %>
+        </p>
+
+        <p style="
+          font-size: 30px;
+          margin-top: 0px;
+          color: #555;
+        ">
+          By user_12
+        </p>
+      </div>
+
+      <!-- 下部コンテンツ（右下に表示） -->
+      <div style="
+        text-align: right;
+        font-size: 30px;
+        color: #555;
+      ">
+        Created with GENEARENA
+      </div>
+    </div>
+  </div>
+</div>

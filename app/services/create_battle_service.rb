@@ -24,7 +24,12 @@ class CreateBattleService
       キャラAについては選択されたスキル「#{character_a[:skill][:name]}」のみを使用してください。
       キャラBについては選択されたスキル「#{character_b[:skill][:name]}」のみを使用してください。
       resultは勝ったキャラを「A」または「B」として返してください。
-      eventは戦闘中のストーリーを、物語形式で300～600文字の文章で日本語で書いてください。
+      eventは戦闘中のストーリーを、物語形式で600~1000文字の文章で日本語で書いてください。
+      例:
+      {
+        "result": "A",
+        "event": "戦闘結果の文章"
+      }
     PROMPT
 
     puts "Create Battle Prompt: #{prompt}" # デバッグ出力
@@ -33,7 +38,7 @@ class CreateBattleService
       parameters: {
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: "あなたはプロのゲームマスターです。" },
+          { role: "system", content: "あなたは戦闘シミュレーターAIです。与えられた戦闘データに基づき、勝者を決定し戦闘の詳細なストーリーをJSONで出力してください。" },
           { role: "user", content: prompt }
         ],
         response_format: { "type": "json_object" },
@@ -41,6 +46,8 @@ class CreateBattleService
         max_tokens: 1500
       }
     )
+
+    puts "Create 4o mini Battle Response: #{response}" # デバッグ出力
 
     result = response.dig("choices", 0, "message", "content")
     JSON.parse(result)

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   root "tops#home"
   get 'dashboard', to: 'tops#dashboard'
 
+  # 利用規約とプライバシーポリシー
+  get 'terms_of_service', to: 'tops#terms_of_service'
+  get 'privacy_policy', to: 'tops#privacy_policy'
+
   #セッション、ログイン関係
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
@@ -23,9 +27,18 @@ Rails.application.routes.draw do
   end
 
   # キャラクター単独操作
-  resources :characters, only: [:new, :create, :show, :update, :destroy]
+  resources :characters, only: [:new, :create, :show, :update, :destroy] do
+    member do
+      get :og_image
+      get :og_image_page
+    end
+  end
 
   # バトル関連（独立したバトル操作）
-  resources :battles, only: [:new, :create, :show]
-
+  resources :battles, only: [:new, :create, :show] do
+    member do
+      get :og_image
+      get :og_image_page
+    end
+  end
 end

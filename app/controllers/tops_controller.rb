@@ -27,4 +27,12 @@ class TopsController < ApplicationController
     # 勝率計算 (戦闘回数が0の場合は0%)
     @win_rate = @battles_count.positive? ? ((@wins_count.to_f / @battles_count) * 100).round(2) : 0
   end
+
+  def terms_of_service
+    render layout: false
+  end
+
+  def privacy_policy
+    render layout: false
+  end
 end
