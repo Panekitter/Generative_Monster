@@ -5,15 +5,18 @@ class TopsController < ApplicationController
     if current_user
       redirect_to dashboard_path and return
     end
+    
+    @characters = fetch_recent_characters
+    
     render :index
   end
 
   def index
-
+    @characters = fetch_recent_characters
   end
 
   def dashboard
-    @characters = Character.order(created_at: :desc).limit(12)
+    @characters = fetch_recent_characters
   
     # 生成したキャラクターの数
     @character_count = current_user.characters.count
@@ -34,5 +37,11 @@ class TopsController < ApplicationController
 
   def privacy_policy
     render layout: false
+  end
+
+  private
+
+  def fetch_recent_characters
+    Character.order(created_at: :desc).limit(12)
   end
 end

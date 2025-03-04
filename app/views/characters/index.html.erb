@@ -11,7 +11,10 @@
   <!-- キャラクター一覧 -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     <% @characters.each do |character| %>
-      <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+      <div id="character-<%= character.id %>" 
+           class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow"
+           data-controller="delete-character"
+           data-delete-character-id-value="<%= character.id %>">
         <!-- キャラクター画像 -->
         <figure class="w-full h-48 object-cover rounded-t-lg overflow-hidden">
           <%= link_to character_path(character), class: "block w-full h-full" do %>
@@ -28,7 +31,12 @@
           <div class="flex justify-between">
             <%= link_to "詳細", character_path(character), class: "btn btn-primary btn-sm" %>
             <% if character.user == current_user %>
-              <%= link_to "削除", character_path(character), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-error btn-sm" %>
+              <%= button_to "削除", character_path(character),
+                method: :delete,
+                class: "btn btn-error btn-sm",
+                data: {
+                  action: "click->delete-character#confirm turbo:submit-success->delete-character#remove"
+                } %>
             <% end %>
           </div>
         </div>
