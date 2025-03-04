@@ -74,8 +74,15 @@ class CharactersController < ApplicationController
 
   def destroy
     @character = current_user.characters.find_by(id: params[:id])
+    @character_id = @character.id  # IDを保存しておく
     @character.destroy!
-    redirect_to user_characters_path(current_user), notice: "キャラクターを削除しました。"
+    
+    respond_to do |format|
+      format.html { redirect_to user_characters_path(current_user), notice: "キャラクターを削除しました。" }
+      format.turbo_stream { 
+        render turbo_stream: turbo_stream.remove("character-#{@character_id}")
+      }
+    end
   end
 
   def og_image

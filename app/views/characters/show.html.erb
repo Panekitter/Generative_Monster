@@ -51,6 +51,13 @@
     <% else %>
       <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn" %>
     <% end %>
+    <% if @character.user == current_user %>
+      <%= button_to "キャラクターを削除", character_path(@character),
+              method: :delete,
+              form: { data: { turbo: "false" } },
+              class: "btn btn-error",
+              onclick: "return confirm('本当に削除してよろしいですか？');" %>
+    <% end %>
 
   </div>
   <!-- 共有ボタン -->
