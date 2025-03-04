@@ -5,7 +5,7 @@ RSpec.describe "TopPage", type: :request do
 
   it "ログイン前にトップページにアクセスできる" do
     get root_path
-    expect(response.body).to include("※利用にはGoogleアカウントへのログインが必要です")
+    expect(response.body).to include("※ご利用にはGoogleアカウントへのログインが必要です")
   end
 
   it "ログイン後にトップページにアクセスできない" do
@@ -13,7 +13,7 @@ RSpec.describe "TopPage", type: :request do
 
     get '/auth/google_oauth2/callback'
     get root_path
-    expect(response.body).to_not include("※利用にはGoogleアカウントへのログインが必要です")
+    expect(response.body).to_not include("※ご利用にはGoogleアカウントへのログインが必要です")
   end
 
   it "ログイン前はダッシュボードページにアクセスできない" do
