@@ -42,3 +42,5 @@
 /.env
 
 /public/uploads/characters
+
+/app/services/create_battle_service_deepseek.rb
