@@ -1,5 +1,5 @@
 class TopsController < ApplicationController
-  skip_before_action :logged_in?, only: [:home, :index]
+  skip_before_action :logged_in?, only: [:home, :index, :terms_of_service, :privacy_policy]
 
   def home
     if current_user
