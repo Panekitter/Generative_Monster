@@ -1,9 +1,13 @@
-import { Application } from "@hotwired/stimulus"
+import { Application } from "@hotwired/stimulus";
+import SearchController from "./search_controller";
 
-const application = Application.start()
+window.Stimulus = Application.start();
+Stimulus.register("search", SearchController);
 
-// Configure Stimulus development experience
-application.debug = false
-window.Stimulus   = application
+console.log("✅ Stimulus Initialized and SearchController Registered");
 
-export { application }
+// Turbo の影響を防ぐ（ページ遷移時に Stimulus を再読み込み）
+document.addEventListener("turbo:load", () => {
+  Stimulus.start();
+  console.log("✅ Turbo:load event fired, Stimulus restarted");
+});
