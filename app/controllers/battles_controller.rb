@@ -89,7 +89,8 @@ class BattlesController < ApplicationController
   end
 
   def index
-    @battles = current_user.battles.order(created_at: :desc).page(params[:page]).per(10)
+    @user = User.find(params[:user_id])
+    @battles = @user.battles.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def og_image

@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   get 'log_out', to: 'sessions#destroy', as: 'log_out'
   resources :sessions, only: %i[create destroy]
 
+  #検索機能
+  get "search", to: "search#index"
+
   # ユーザー関連
   resources :users, only: [:index, :show, :edit, :update] do
     # バトル関連（戦闘履歴）

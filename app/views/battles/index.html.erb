@@ -1,6 +1,17 @@
 <div class="container mx-auto p-2 md:p-6">
   <h1 class="text-3xl font-bold text-center mb-6">戦闘履歴</h1>
 
+  <!-- 検索欄 -->
+  <div class="mb-4" data-search-user-id="<%= @user.id %>" data-controller="search">
+  <input type="text" id="battle-search" 
+         class="input input-bordered w-full" 
+         placeholder="キャラ名から戦闘履歴を検索..."
+         data-search-target="input"
+         data-search-category="user_battles"
+         data-action="input->search#fetchResults">
+  <div id="search-results" data-search-target="results" class="mt-2 bg-white shadow-md rounded-lg p-2 hidden"></div>
+</div>
+
   <% if @battles.any? %>
     <div class="overflow-x-auto">
       <table class="table table-xs md:table-md w-full">
