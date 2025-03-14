@@ -45,7 +45,7 @@ class CreateCharacterService
 
       puts "Generated Image URL: #{image_url}" # デバッグ出力
 
-      character_data["image_url"] = upload_to_s3(image_url)
+      character_data["image_url"] = image_url
 
       character_data
     rescue JSON::ParserError => e

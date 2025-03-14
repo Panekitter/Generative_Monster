@@ -1,37 +1,82 @@
 <div class="container mx-auto">
   <h1 class="text-4xl font-bold text-center mb-6">戦闘結果</h1>
-
-  <div class="bg-white shadow-md rounded-lg p-6">
-    <div class="flex justify-center mb-4">
-      <% winner_character = @battle.winner_name == @battle.character_1&.name ? @battle.character_1 : @battle.character_2 %>
-      <%= image_tag(winner_character.image? ? winner_character.image.url : "https://placehold.jp/150x150.png", alt: winner_character.name, class: "w-32 h-32 rounded-2xl object-cover shadow-lg") %>
+    <div class="bg-white shadow-md rounded-lg p-6">
+    <div class="grid grid-cols-[1fr_min-content_1fr] gap-4 items-stretch mb-6 xl:w-1/2 mx-auto">
+      <!-- キャラクターAのカラム -->
+      <div class="grid grid-rows-[auto_auto_1fr] place-items-center text-center">
+        <% if @battle.winner_name == @battle.character_1_name %>
+          <p class="text-lg text-red-500 font-bold">Win!</p>
+        <% else %>
+          <div class="h-6"></div>
+        <% end %>
+        <% if @battle.character_1.present? %>
+          <%= link_to character_path(@battle.character_1) do %>
+            <%= image_tag(@battle.character_1.image? ? @battle.character_1.image.url : "https://placehold.jp/150x150.png", 
+                          alt: @battle.character_1_name, 
+                          class: "w-32 h-32 rounded-2xl object-cover") %>
+          <% end %>
+        <% else %>
+          <%= image_tag("https://placehold.jp/150x150.png", 
+                        alt: @battle.character_1_name, 
+                        class: "w-32 h-32 rounded-2xl object-cover") %>
+        <% end %>
+        <% if @battle.character_1.present? %>
+          <%= link_to @battle.character_1_name, character_path(@battle.character_1), class: "mt-2 text-xl font-bold text-center" %>
+        <% else %>
+          <h2 class="mt-2 text-xl font-bold text-center"><%= @battle.character_1_name %></h2>
+        <% end %>
+          <h2 class="mt-2 text-center"><%= @battle.user_skill_name %>:   <%= @battle.user_skill_description %></h2>
+      </div>
+    
+      <!-- VSのカラム -->
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="text-2xl font-bold">VS</h2>
+      </div>
+    
+      <!-- キャラクターBのカラム -->
+      <div class="grid grid-rows-[auto_auto_1fr] place-items-center text-center">
+        <% if @battle.winner_name == @battle.character_2_name %>
+          <p class="text-lg text-red-500 font-bold">Win!</p>
+        <% else %>
+          <div class="h-6"></div>
+        <% end %>
+        <% if @battle.character_2.present? %>
+          <%= link_to character_path(@battle.character_2) do %>
+            <%= image_tag(@battle.character_2.image? ? @battle.character_2.image.url : "https://placehold.jp/150x150.png", 
+                          alt: @battle.character_2_name, 
+                          class: "w-32 h-32 rounded-2xl object-cover") %>
+          <% end %>
+        <% else %>
+          <%= image_tag("https://placehold.jp/150x150.png", 
+                        alt: @battle.character_2_name, 
+                        class: "w-32 h-32 rounded-2xl object-cover") %>
+        <% end %>
+        <% if @battle.character_2.present? %>
+          <%= link_to @battle.character_2_name, character_path(@battle.character_2), class: "mt-2 text-xl font-bold text-center" %>
+        <% else %>
+          <h2 class="mt-2 text-xl font-bold text-center"><%= @battle.character_2_name %></h2>
+        <% end %>
+          <h2 class="mt-2 text-center"><%= @battle.opponent_skill_name %>:   <%= @battle.opponent_skill_description %></h2>
+      </div>
     </div>
-    <h2 class="text-2xl text-center font-semibold mb-4">勝者: <%= @battle.winner_name %></h2>
+
     <p class="text-gray-700 mb-4"><%= simple_format(@battle.event) %></p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-gray-100 p-4 rounded-md">
-        <h3 class="text-lg font-semibold mb-2">キャラクター A</h3>
-        <p><strong>名前:</strong> <%= @battle.character_1.name %></p>
-        <p><strong>説明:</strong> <%= @battle.character_1.description %></p>
-      </div>
-      <div class="bg-gray-100 p-4 rounded-md">
-        <h3 class="text-lg font-semibold mb-2">キャラクター B</h3>
-        <p><strong>名前:</strong> <%= @battle.character_2.name %></p>
-        <p><strong>説明:</strong> <%= @battle.character_2.description %></p>
-      </div>
+    <!-- 共有ボタン -->
+    <div class="mt-3 flex space-x-4">
+      <!-- Facebook 共有ボタン -->
+      <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(request.url)}", target: "_blank", rel: "noopener noreferrer" do %>
+        <i class="fa-brands fa-facebook fa-3x"></i>
+      <% end %>
+      <!-- X (Twitter) 共有ボタン -->
+      <%= link_to "https://twitter.com/intent/tweet?text=GENEARENAで#{CGI.escape(@battle.character_1_name)}%20vs%20#{CGI.escape(@battle.character_2_name)}の戦闘を行いました！%0a%23GENEARENA%20%23生成AI%0a&url=#{CGI.escape(request.url)}", target: "_blank", rel: "noopener noreferrer" do %>
+        <i class="fa-brands fa-x-twitter fa-3x"></i>
+      <% end %>
+  
+      <!-- LINE 共有ボタン -->
+      <%= link_to "http://line.me/R/msg/text/?GENEARENAで#{CGI.escape(@battle.character_1_name)}%20vs%20#{CGI.escape(@battle.character_2_name)}の戦闘を行いました！%0A#{CGI.escape(request.url)}", target: "_blank", rel: "noopener noreferrer" do %>
+        <i class="fa-brands fa-line fa-3x"></i>
+      <% end %>
     </div>
-  </div>
-  <!-- 共有ボタン -->
-  <div class="mt-6 flex space-x-4">
-    <!-- Facebook 共有ボタン -->
-    <%= link_to "Facebookで共有", "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
-
-    <!-- X (Twitter) 共有ボタン -->
-    <%= link_to "Xで共有", "https://twitter.com/intent/tweet?text=#{@battle.character_1.name} vs #{@battle.character_2.name}の戦闘結果%0a&url=#{request.url}", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
-
-
-    <!-- LINE 共有ボタン -->
-    <%= link_to "LINEで共有", "http://line.me/R/msg/text/?#{@battle.character_1.name} vs #{@battle.character_2.name}の戦闘結果%0A#{request.url}%0A", target: "_blank", rel: "noopener noreferrer", class: "btn btn-outline btn-secondary" %>
   </div>
 </div>

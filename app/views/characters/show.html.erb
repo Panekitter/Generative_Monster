@@ -63,11 +63,11 @@
   <!-- 共有ボタン -->
   <div class="mt-3 flex space-x-4">
     <!-- Facebook 共有ボタン -->
-    <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", target: "_blank", rel: "noopener noreferrer" do %>
+    <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(request.url)}", target: "_blank", rel: "noopener noreferrer" do %>
       <i class="fa-brands fa-facebook fa-3x"></i>
     <% end %>
     <!-- X (Twitter) 共有ボタン -->
-    <%= link_to "https://twitter.com/intent/tweet?text=#{@character.name}%0a&url=#{request.url}", target: "_blank", rel: "noopener noreferrer" do %>
+    <%= link_to "https://twitter.com/intent/tweet?text=GENEARENAで#{CGI.escape(@character.name)}を生成しました！%0a%23GENEARENA%20%23生成AI%0a&url=#{CGI.escape(request.url)}", target: "_blank", rel: "noopener noreferrer" do %>
       <i class="fa-brands fa-x-twitter fa-3x"></i>
     <% end %>
 

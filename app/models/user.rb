@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :characters, dependent: :destroy
+  has_many :battles, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
