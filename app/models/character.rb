@@ -5,8 +5,8 @@ class Character < ApplicationRecord
 
   belongs_to :user
   has_many :skills, dependent: :destroy
-  has_many :battles_as_character_1, class_name: 'Battle', foreign_key: :character_1_id
-  has_many :battles_as_character_2, class_name: 'Battle', foreign_key: :character_2_id
+  has_many :battles_as_character_1, class_name: 'Battle', foreign_key: :character_1_id, dependent: :nullify
+  has_many :battles_as_character_2, class_name: 'Battle', foreign_key: :character_2_id, dependent: :nullify
 
   validates :name, presence: true
   validates :description, presence: true

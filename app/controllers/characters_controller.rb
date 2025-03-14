@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  skip_before_action :logged_in?, only: [:index, :show, :og_image_page, :og_image]
+  skip_before_action :logged_in?, only: [:show, :og_image_page, :og_image]
 
   def index
     @user = User.find(params[:user_id])
@@ -32,16 +32,7 @@ class CharactersController < ApplicationController
     )
 
     # 画像の設定（環境に応じて処理）
-    if Rails.env.production?
       character.image = URI.open(character_data["image_url"])
-    else
-      image_path = Rails.root.join("public", character_data["image_url"].sub(/^\/uploads\//, "uploads/"))
-      if File.exist?(image_path)
-        character.image = File.open(image_path)
-      else
-        Rails.logger.error("Image file not found: #{image_path}")
-      end
-    end
 
     # 保存処理とスキルの作成
     if character.save

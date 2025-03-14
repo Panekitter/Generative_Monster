@@ -50,7 +50,7 @@
             <h2 class="text-xl font-semibold mb-2"><%= character.name %></h2>
             <p class="text-xs md:text-sm text-gray-600 mb-4"><%= truncate(character.description, length: 100) %></p>
 
-            <!-- 詳細・削除ボタン -->
+            <!-- 詳細ボタン -->
             <div class="flex justify-between">
               <%= link_to "詳細", character_path(character), class: "btn btn-primary btn-sm" %>
               <p class="text-xs md:text-sm text-gray-600 mt-4">by <%= character.user.name %></p>

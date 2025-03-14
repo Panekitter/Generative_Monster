@@ -11,9 +11,9 @@
 
     <!-- キャラクターの説明 -->
     <div class="form-control">
-      <%= label_tag :description_from_user, "キャラクターの説明（最大50文字）", class: "label font-bold" %>
-      <%= text_field_tag :description_from_user, nil, id: "description_from_user", 
-            class: "input input-bordered w-full", required: true, maxlength: 50, placeholder: "例: バイクに乗って銃を乱射する銃の達人" %>
+      <%= label_tag :description_from_user, "キャラクターの説明（最大100文字）", class: "label font-bold" %>
+      <%= text_area_tag :description_from_user, nil, id: "description_from_user", 
+            class: "input input-bordered w-full h-20", required: true, maxlength: 100, placeholder: "例: 赤色のスライム。倒されると爆発して相手を巻き込む。" %>
     </div>
 
     <!-- 送信ボタン -->
