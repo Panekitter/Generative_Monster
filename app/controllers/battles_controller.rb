@@ -65,6 +65,7 @@ class BattlesController < ApplicationController
     puts @battle
     
     # 戦闘結果ページを表示
+    flash[:_just_created] = true
     redirect_to battle_path(@battle)
 
   rescue => e

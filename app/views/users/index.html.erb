@@ -1,0 +1,77 @@
+<div class="container mx-auto p-2 md:p-6">
+  <!-- ページタイトル -->
+  <h1 class="text-3xl font-bold text-center mb-6">ユーザーランキング</h1>
+
+  <!-- ソート切替ボタン -->
+<div class="flex justify-end mb-4">
+  <%= form_with url: users_path, method: :get, local: true do %>
+    <select name="sort" onchange="this.form.submit()" class="select select-sm select-bordered w-full max-w-xs">
+      <option value="win_rate" <%= (params[:sort] == 'win_rate' || params[:sort].blank?) ? 'selected' : '' %>>勝率順</option>
+      <option value="newest" <%= params[:sort] == 'newest' ? 'selected' : '' %>>新規作成順</option>
+    </select>
+  <% end %>
+</div>
+
+
+  <!-- 検索欄 -->
+  <div class="mb-4" data-controller="search">
+    <input type="text" id="user-search"
+          class="input input-bordered w-full"
+          placeholder="ユーザーを検索..."
+          data-search-target="input"
+          data-search-category="users"
+          data-action="input->search#fetchResults">
+    <div id="search-results" data-search-target="results" class="mt-2 bg-white shadow-md rounded-lg p-2 hidden"></div>
+  </div>
+
+
+  <% if @users.any? %>
+    <div class="overflow-x-auto">
+      <table class="table table-xs md:table-md table-zebra w-full">
+        <thead>
+          <tr>
+            <th class="text-center">順位</th>
+            <th class="text-center">ユーザー</th>
+            <th class="text-center">戦闘回数</th>
+            <th class="text-center">勝利数</th>
+            <th class="text-center">勝率</th>
+            <th class="text-center">作成日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+            <tr class="hover cursor-pointer" onclick="window.location='<%= user_path(user) %>'">
+              <td class="text-center"><%= index + 1 %>位</td>
+              <td class="text-center">
+                <div class="flex justify-center items-center space-x-2">
+                  <%= image_tag(user.image.present? ? user.image.url : "https://placehold.jp/150x150.png", 
+                                alt: user.name,
+                                class: "rounded-full size-5 md:size-10 object-cover") %>
+                  <span><%= user.name %></span>
+                </div>
+              </td>
+              <td class="text-center"><%= user.battle_count %></td>
+              <td class="text-center"><%= user.win_count %></td>
+              <td class="text-center">
+                <% if user.battle_count > 0 %>
+                  <%= number_to_percentage((user.win_count.to_f / user.battle_count * 100), precision: 1) %>
+                <% else %>
+                  0%
+                <% end %>
+              </td>
+              <td class="text-center"><%= user.created_at.strftime('%Y-%m-%d') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ページネーション -->
+    <div class="mt-4">
+      <%= paginate @users, theme: 'tailwind_2' %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-500">ユーザーが見つかりません。</p>
+  <% end %>
+
+</div>

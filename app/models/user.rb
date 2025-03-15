@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  mount_uploader :image, UserImageUploader
+
+  before_destroy :remove_image!
+
   has_many :characters, dependent: :destroy
   has_many :battles, dependent: :destroy
 
@@ -21,6 +25,12 @@ class User < ApplicationRecord
 
     def generate_username(user_id)
       "user_#{user_id}"
+    end
+
+    def remove_image!
+      image.remove! if image.present?
+    rescue => e
+      Rails.logger.error("Failed to remove image: #{e.message}")
     end
   end
 end

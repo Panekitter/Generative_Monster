@@ -88,6 +88,7 @@
         </div>
       </div>
       <% flash.each do |type, message| %>
+        <% next if type.to_s.start_with?('_') %>
         <div class="p-2 text-center text-white <%= type == 'alert' ? 'bg-red-500' : 'bg-green-500' %>">
           <%= message %>
         </div>
