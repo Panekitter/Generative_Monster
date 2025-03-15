@@ -3,50 +3,49 @@
 
   <!-- 検索欄 -->
   <div class="mb-4" data-search-user-id="<%= @user.id %>" data-controller="search">
-  <input type="text" id="battle-search" 
-         class="input input-bordered w-full" 
-         placeholder="キャラ名から戦闘履歴を検索..."
-         data-search-target="input"
-         data-search-category="user_battles"
-         data-action="input->search#fetchResults">
-  <div id="search-results" data-search-target="results" class="mt-2 bg-white shadow-md rounded-lg p-2 hidden"></div>
-</div>
+    <input type="text" id="battle-search" 
+           class="input input-bordered w-full" 
+           placeholder="キャラ名から戦闘履歴を検索..."
+           data-search-target="input"
+           data-search-category="user_battles"
+           data-action="input->search#fetchResults">
+    <div id="search-results" data-search-target="results" class="mt-2 bg-white shadow-md rounded-lg p-2 hidden"></div>
+  </div>
+
 
   <% if @battles.any? %>
     <div class="overflow-x-auto">
-      <table class="table table-xs md:table-md w-full">
+      <table class="table table-xs md:table-md table-zebra w-full">
         <thead>
           <tr>
-            <th>日時</th>
-            <th>自分</th>
-            <th>相手</th>
-            <th>結果</th>
+            <th class="text-center">日時</th>
+            <th class="text-center">自分</th>
+            <th class="text-center">相手</th>
+            <th class="text-center">結果</th>
           </tr>
         </thead>
         <tbody>
           <% @battles.each do |battle| %>
-            <tr class="hover:bg-gray-100">
-                <td><%= link_to battle.created_at.strftime('%Y-%m-%d %H:%M'), battle_path(battle), class: "block p-2" %></td>
-                <td><%= link_to battle.character_1_name, battle_path(battle), class: "block p-2" %></td>
-                <td><%= link_to battle.character_2_name, battle_path(battle), class: "block p-2" %></td>
-                <td>
-                  <%= link_to battle_path(battle), class: "block p-2" do %>
-                      <span class="<%= battle.winner_name == battle.character_1_name ? 'text-green-500' : 'text-red-500' %> font-bold">
-                      <%= battle.winner_name == battle.character_1_name ? '勝利' : '敗北' %>
-                      </span>
-                  <% end %>
-                </td>
+            <tr class="hover cursor-pointer" onclick="window.location='<%= battle_path(battle) %>'">
+              <td class="text-center"><%= battle.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+              <td class="text-center"><%= battle.character_1_name %></td>
+              <td class="text-center"><%= battle.character_2_name %></td>
+              <td class="text-center">
+                <span class="<%= battle.winner_name == battle.character_1_name ? 'text-green-500' : 'text-red-500' %> font-bold">
+                  <%= battle.winner_name == battle.character_1_name ? '勝利' : '敗北' %>
+                </span>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
-
     <!-- ページネーション -->
-    <div>
+    <div class="mt-4">
       <%= paginate @battles, theme: 'tailwind_2' %>
     </div>
   <% else %>
     <p class="text-center text-gray-500">戦闘履歴がありません。</p>
   <% end %>
+
 </div>

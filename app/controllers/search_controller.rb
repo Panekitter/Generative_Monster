@@ -7,6 +7,19 @@ class SearchController < ApplicationController
     
 
     results = case category
+              when "users"
+                User
+                  .where("translate(name, ?, ?) LIKE '%' || translate(?, ?, ?) || '%'",
+                        kana_from, kana_to, query, kana_from, kana_to)
+                  .limit(10)
+                  .map do |user|
+                    {
+                      id: user.id,
+                      name: user.name,
+                      url: user_path(user),
+                      image_url: user.image? ? user.image.url : nil
+                    }
+                  end
               when "characters"  # グローバルなキャラクター検索
                 Character
                   .where("translate(name, ?, ?) LIKE '%' || translate(?, ?, ?) || '%'",
