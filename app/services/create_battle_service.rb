@@ -51,7 +51,5 @@ class CreateBattleService
 
     result = response.dig("choices", 0, "message", "content")
     JSON.parse(result)
-  rescue JSON::ParserError => e
-    raise "AIからの応答がJSON形式ではありません: #{e.message}"
   end
 end

@@ -20,15 +20,8 @@ class TopsController < ApplicationController
   
     # 生成したキャラクターの数
     @character_count = current_user.characters.count
-  
-    # 行った戦闘回数
-    @battles_count = Battle.where(character_1: current_user.characters).count
-  
-    # 勝利した戦闘の数 (character_1が自分のキャラの場合のみ計算)
-    @wins_count = Battle.where(character_1: current_user.characters, winner_user_id: current_user.id).count
-  
-    # 勝率計算 (戦闘回数が0の場合は0%)
-    @win_rate = @battles_count.positive? ? ((@wins_count.to_f / @battles_count) * 100).round(2) : 0
+
+    @win_rate = current_user.battle_count.positive? ? ((current_user.win_count.to_f / current_user.battle_count) * 100).round : 0
   end
 
   def terms_of_service
