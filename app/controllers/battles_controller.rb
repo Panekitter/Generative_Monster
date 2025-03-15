@@ -6,6 +6,8 @@ class BattlesController < ApplicationController
     other_users_characters = Character.where.not(user_id: current_user.id)
     @opponent_character = other_users_characters.sample
     @opponent_skill = @opponent_character.skills.sample
+
+    current_user.increment!(:battle_count)
   end
 
   def create
@@ -37,6 +39,7 @@ class BattlesController < ApplicationController
     if battle_result["result"] == "A"
       winner_character = user_character
       winner_user_id = current_user.id
+      current_user.increment!(:win_count)
     elsif battle_result["result"] == "B"
       winner_character = opponent_character
       winner_user_id = opponent_character.user_id
@@ -63,6 +66,12 @@ class BattlesController < ApplicationController
     
     # 戦闘結果ページを表示
     redirect_to battle_path(@battle)
+
+  rescue => e
+    # 戦闘結果の処理でエラーが起きた場合、戦闘回数を -1 に戻す
+    current_user.decrement!(:battle_count)
+    flash[:alert] = "戦闘処理中にエラーが発生しました。戦闘は無効扱いとなります"
+    redirect_to root_path
   end
 
   def show
@@ -96,9 +105,9 @@ class BattlesController < ApplicationController
   def og_image
     @battle = Battle.find(params[:id])
 
-    battle_og_page_url = og_image_page_battle_url(@battle)
+    og_page_url = og_image_page_battle_url(@battle)
 
-    image_data = `node #{Rails.root.join('public', 'scripts', 'battle_og_image_generator.js')} #{battle_og_page_url}`
+    image_data = `node #{Rails.root.join('public', 'scripts', 'battle_og_image_generator.js')} #{og_page_url}`
     
     send_data image_data, type: 'image/png', disposition: 'inline'
   end
