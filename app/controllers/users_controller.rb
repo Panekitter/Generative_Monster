@@ -20,8 +20,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # 既存画像がある場合、キャッシュを呼び出す
-    @user.image.cache! if @user.image.file.present?
   end
 
   def update
@@ -47,6 +45,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :image, :image_cache)
+    permitted = params.require(:user).permit(:name, :image, :image_cache)
+    # もし画像ファイルが空かつ image_cache も空なら、:image を削除
+    if permitted[:image].blank? && permitted[:image_cache].blank?
+      permitted.delete(:image)
+    end
+    permitted
   end
 end
