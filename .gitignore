@@ -41,6 +41,10 @@
 
 /.env
 
-/public/uploads/characters
+/public/uploads/
 
 /app/services/create_battle_service_deepseek.rb
+
+/vendor/bundle
+
+.gem/

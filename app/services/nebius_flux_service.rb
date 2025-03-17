@@ -6,32 +6,44 @@ class NebiusFluxService
 
   def self.generate_image(prompt)
     puts "Nebius Flux API Request: #{prompt}" # デバッグ出力
-    # APIリクエストボディを組み立て
+  
     body = {
       model: 'black-forest-labs/flux-schnell',
       prompt: prompt,
-      response_format: 'url',             # 画像URLでの応答を要求&#8203;:contentReference[oaicite:13]{index=13}
-      response_extension: 'webp',         # 生成画像形式（WebP）&#8203;:contentReference[oaicite:14]{index=14}
-      width: 512,                         # 幅512pxで生成&#8203;:contentReference[oaicite:15]{index=15}
-      height: 512,                        # 高さ512px&#8203;:contentReference[oaicite:16]{index=16}
-      num_inference_steps: 4,             # 4ステップで高速生成&#8203;:contentReference[oaicite:17]{index=17}
-      negative_prompt: '',               # 負のプロンプトなし（必要に応じて設定）
-      seed: -1                            # シード値-1（ランダム）&#8203;:contentReference[oaicite:18]{index=18}
+      response_format: 'url',
+      response_extension: 'webp',
+      width: 512,
+      height: 512,
+      num_inference_steps: 4,
+      negative_prompt: '',
+      seed: -1
     }
-
-    # HTTPartyでPOSTリクエスト送信
-    response = HTTParty.post(
-      NEBIUS_API_URL,
-      headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{NEBIUS_API_KEY}"
-      },
-      body: body.to_json
-    )
-
-    # レスポンスから画像URLを取り出す
-    result = JSON.parse(response.body)
-    image_url = result.dig('data', 0, 'url')
-    return image_url  # 取得した画像URLを返す
+  
+    begin
+      response = HTTParty.post(
+        NEBIUS_API_URL,
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => "Bearer #{NEBIUS_API_KEY}"
+        },
+        body: body.to_json
+      )
+  
+      unless response.success?
+        Rails.logger.error("NebiusFluxService API Error: HTTP #{response.code} - #{response.body}")
+        return nil
+      end
+  
+      result = JSON.parse(response.body)  # ここで JSON::ParserError になる可能性
+      image_url = result.dig('data', 0, 'url')
+      return image_url
+    rescue JSON::ParserError => e
+      Rails.logger.error("NebiusFluxService JSON Parse Error: #{e.message}")
+      return nil
+    rescue => e
+      # ネットワークエラー等をキャッチ
+      Rails.logger.error("NebiusFluxService Request Failed: #{e.message}")
+      return nil
+    end
   end
 end

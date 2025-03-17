@@ -60,7 +60,7 @@
                 <!-- サムネイルボタン -->
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                   <div class="rounded-full">
-                    <%= image_tag "https://placehold.jp/150x150.png", alt: current_user.name %>
+                    <%= image_tag current_user.image.url, alt: current_user.name %>
                   </div>
                 </label>
                 <!-- ユーザー名ボタン -->
@@ -73,6 +73,7 @@
                 <div class="card-body">
                   <h2 class="font-bold text-lg"><%= current_user.name %>としてログイン中</h2>
                   <div class="card-actions justify-center">
+                    <%= link_to "マイページ", user_path(current_user), method: :delete, class: "btn btn-primary w-full" %>
                     <%= link_to "ログアウト", log_out_path, method: :delete, class: "btn btn-primary w-full" %>
                   </div>
                 </div>

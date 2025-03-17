@@ -1,5 +1,5 @@
 class TopsController < ApplicationController
-  skip_before_action :logged_in?, only: [:home, :index, :terms_of_service, :privacy_policy]
+  skip_before_action :logged_in?, only: [:home, :terms_of_service, :privacy_policy]
 
   def home
     if current_user
@@ -9,10 +9,6 @@ class TopsController < ApplicationController
     @characters = fetch_recent_characters
     
     render :index
-  end
-
-  def index
-    @characters = fetch_recent_characters
   end
 
   def dashboard

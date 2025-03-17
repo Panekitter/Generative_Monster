@@ -35,61 +35,38 @@ class CreateCharacterService
           max_tokens: 1500
         }
       )
-
-      # レスポンス内容を取得
+  
+      # OpenAI APIが失敗した場合の簡易チェック
+      unless response && response.dig("choices", 0, "message", "content")
+        raise "OpenAI APIから有効な応答が得られませんでした"
+      end
+  
       raw_content = response.dig("choices", 0, "message", "content")
       character_data = JSON.parse(raw_content)
-
+  
       image_prompt = generate_image_prompt(character_data["appearance_of_character"], type)
       image_url = NebiusFluxService.generate_image(image_prompt)
-
+      if image_url.nil?
+        raise "NebiusFluxService で画像生成に失敗しました"
+      end
+  
       puts "Generated Image URL: #{image_url}" # デバッグ出力
-
       character_data["image_url"] = image_url
-
+  
       character_data
+  
     rescue JSON::ParserError => e
       Rails.logger.error("JSON Parse Error: #{e.message}")
       Rails.logger.error("Raw Content: #{raw_content}")
-      raise "リクエストを正常に処理できませんでした"
+      raise "リクエストを正常に処理できませんでした (JSON Parse Error)"
+    rescue => e
+      # ネットワークエラーやその他例外の捕捉
+      Rails.logger.error("Character generation failed: #{e.message}")
+      raise "キャラクター生成中にエラーが発生しました: #{e.message}"
     end
   end
 
   private
-
-   def upload_to_s3(image_url)
-    uploader = CharacterImageUploader.new
-    file = URI.open(image_url)
-      
-    puts file
-        
-    begin
-        # MiniMagickで処理
-      processed_image = MiniMagick::Image.read(file)
-      processed_image.format("jpg")
-  
-      temp_file = Tempfile.new(["image", ".jpg"])
-      temp_file.binmode
-      temp_file.write(processed_image.to_blob)
-      temp_file.rewind
-  
-      uploader.store!(temp_file)
-      temp_file.close
-      temp_file.unlink
-  
-      Rails.logger.info("Uploaded Image URL: #{uploader.url}")
-  
-       # ローカル環境ではローカルのパス、本番環境ではS3のURLを返す
-      if Rails.env.production?
-          uploader.url
-      else
-          "/uploads/characters/#{uploader.filename}"
-      end
-     rescue => e
-      Rails.logger.error("Image processing or upload failed: #{e.message}")
-      nil
-    end
-  end
 
   def generate_image_prompt(appearance, type)
     type_description = case type
