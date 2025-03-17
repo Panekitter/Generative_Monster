@@ -9,6 +9,12 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
 
+  def remove_image!
+    image.remove! if image.present?
+  rescue => e
+    Rails.logger.error("Failed to remove image: #{e.message}")
+  end
+
   class << self
     def find_or_create_from_auth_hash(auth_hash)
       is_new_user = false
@@ -25,12 +31,6 @@ class User < ApplicationRecord
 
     def generate_username(user_id)
       "user_#{user_id}"
-    end
-
-    def remove_image!
-      image.remove! if image.present?
-    rescue => e
-      Rails.logger.error("Failed to remove image: #{e.message}")
     end
   end
 end

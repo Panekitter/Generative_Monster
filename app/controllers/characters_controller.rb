@@ -15,11 +15,23 @@ class CharactersController < ApplicationController
     description = params[:description_from_user]
     type = params[:type]
 
-    # キャラクター生成サービスを呼び出し
     service = CreateCharacterService.new
-    character_data = service.generate_character(description, type)
 
-    # キャラクターの作成
+    begin
+      # サービス呼び出し
+      character_data = service.generate_character(description, type)
+    rescue => e
+      # ログに詳細情報を出力
+      Rails.logger.error("Error in character creation: #{e.class} - #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n"))
+
+      # ユーザーには一般的なメッセージのみ表示
+      flash[:alert] = "キャラクター生成中にエラーが発生しました。再度お試しください。"
+      redirect_to root_path
+      return
+    end
+
+    # キャラクター生成に成功した場合の処理
     character = user.characters.new(
       name: character_data["name_of_character"],
       description: character_data["description_of_character"],
@@ -31,10 +43,11 @@ class CharactersController < ApplicationController
       appearance: character_data["appearance_of_character"]
     )
 
-    # 画像の設定（環境に応じて処理）
-      character.image = URI.open(character_data["image_url"])
+    # ダウンロードした画像をCarrierWaveのimageに割り当て
+    Rails.logger.info "DEBUG: character_data = #{character_data.inspect}"
+    Rails.logger.info "DEBUG: image_url = #{character_data['image_url'].inspect if character_data}"
+    character.image = URI.open(character_data["image_url"])
 
-    # 保存処理とスキルの作成
     if character.save
       character.skills.create!(name: character_data["name_of_skill_A"], description: character_data["description_of_skill_A"])
       character.skills.create!(name: character_data["name_of_skill_B"], description: character_data["description_of_skill_B"])

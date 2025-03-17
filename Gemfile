@@ -88,7 +88,8 @@ gem 'loofah'
 
 # AWS S3用
 gem 'carrierwave'
-gem 'mini_magick'
+gem "ruby-vips"
+gem "image_processing", ">= 1.2"
 
 # OpenAI API用
 gem "ruby-openai"

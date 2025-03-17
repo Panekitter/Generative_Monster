@@ -19,8 +19,7 @@
           </div>
           <p class="text-gray-600 mb-4"><%= @opponent_character.description %></p>
           <h3 class="font-semibold mb-2">相手のスキル:</h3>
-          <%= @opponent_skill.name %>
-          <%= @opponent_skill.description %>
+          <span class="label-text"><strong><%= @opponent_skill.name %>:</strong> <%= @opponent_skill.description %></span>
         </div>
       </div>
     </div>
@@ -37,7 +36,7 @@
           </div>
           <p class="text-gray-600 mb-4"><%= @user_character.description %></p>
           <h3 class="font-semibold mb-2">スキルを選択してください:</h3>
-          <%= form_with url: battles_path, method: :post, local: true, class: "space-y-4" do |f| %>
+          <%= form_with url: battles_path, method: :post, local: true, class: "space-y-4", html: { onsubmit: "showLoadingOverlay()" } do |f| %>
             <%= hidden_field_tag :user_character_id, @user_character.id %>
             <%= hidden_field_tag :opponent_character_id, @opponent_character.id %>
             <%= hidden_field_tag :opponent_skill_id, @opponent_skill.id %>
@@ -61,3 +60,19 @@
   <!-- 注意書き -->
   <p class="text-center text-red-500 pt-6">※ページを更新したり、他のページに移動したりすると、この戦闘は負け扱いとなります。
 </div>
+
+<!-- ローディング用オーバーレイ（初期状態は非表示） -->
+<div id="loading-overlay" class="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center hidden">
+  <div class="flex flex-col items-center">
+    <!-- daisyUI のローディングスピナー -->
+    <div class="loading loading-spinner loading-lg text-white"></div>
+    <p class="text-white mt-2">生成中...</p>
+  </div>
+</div>
+
+<script>
+  // オーバーレイを表示する関数
+  function showLoadingOverlay() {
+    document.getElementById('loading-overlay').classList.remove('hidden');
+  }
+</script>

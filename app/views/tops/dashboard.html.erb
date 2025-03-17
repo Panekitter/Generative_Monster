@@ -1,7 +1,7 @@
 <div class="bg-base-100 text-base-content">
   <!-- ユーザー情報 -->
   <section class="flex flex-col items-center mb-8">
-    <img src="https://placehold.jp/150x150.png" alt="サムネイル" class="rounded-full mb-4">
+    <%= image_tag current_user.image.url, alt: current_user.name, class: "rounded-full mb-4" %>
     <p class="text-lg font-semibold"><%= current_user.name %></p>
     <p>生成したキャラの数: <%= @character_count %>体</p>
     <p>戦闘回数: <%= current_user.battle_count %>回</p>

@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :authorize_user, only: [:edit, :update]
+
   def index
     sort = params[:sort] || "win_rate"  # デフォルトは勝率順
     @users = case sort
@@ -13,14 +16,37 @@ class UsersController < ApplicationController
   end
 
   def show
+    @characters = @user.characters.order(created_at: :desc).limit(12)
   end
 
   def edit
+    # 既存画像がある場合、キャッシュを呼び出す
+    @user.image.cache! if @user.image.present?
   end
 
   def update
+    if @user.update(user_params)
+      redirect_to @user, notice: "プロフィールを更新しました。"
+    else
+      flash.now[:alert] = "更新に失敗しました。"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    redirect_to root_path, alert: "権限がありません。" unless @user == current_user
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :image, :image_cache)
   end
 end

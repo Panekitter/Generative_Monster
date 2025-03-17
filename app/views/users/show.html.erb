@@ -1,0 +1,57 @@
+<div class="container mx-auto">
+  <h1 class="text-2xl font-bold mb-4 text-center">
+    <%= @user.name %> さんのプロフィール
+  </h1>
+
+  <div class="w-full max-w-md mx-auto flex flex-col items-center">
+    <% if @user.image? %>
+      <img src="<%= @user.image.url %>" alt="サムネイル" class="rounded-full w-36 h-36 object-cover mb-4 shadow" />
+    <% else %>
+      <p class="mb-4">サムネイル画像なし</p>
+    <% end %>
+    
+    <% if @user == current_user %>
+      <p>
+        <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-secondary" %>
+      </p>
+    <% end %>
+    
+    <!-- キャラクター一覧とバトル一覧へのリンク -->
+    <div class="flex gap-4 mt-4">
+      <%= link_to "キャラクター一覧", user_characters_path(@user), class: "btn btn-info" %>
+      <%= link_to "バトル一覧", user_battles_path(@user), class: "btn btn-info" %>
+    </div>
+  </div>
+
+  <!-- 最近生成されたキャラクター -->
+  <section class="mt-8">
+    <h2 class="text-2xl font-bold mb-4 text-center"><%= @user.name %>さんが最近生成したキャラクター</h2>
+    <!-- キャラクター一覧 -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+      <% @characters.each do |character| %>
+        <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+          <!-- キャラクター画像 -->
+          <figure class="w-full h-48 object-cover rounded-t-lg overflow-hidden">
+            <%= link_to character_path(character), class: "block w-full h-full" do %>
+              <%= image_tag(character.image? ? character.image.url : "https://placehold.jp/150x150.png", alt: character.name, class: "rounded-lg w-full h-full object-cover") %>
+            <% end %>
+          </figure>
+
+          <!-- キャラクター情報 -->
+          <div class="p-4">
+            <h2 class="text-xl font-semibold mb-2"><%= character.name %></h2>
+            <p class="text-xs md:text-sm text-gray-600 mb-4">
+              <%= truncate(character.description, length: 100) %>
+            </p>
+
+            <!-- 詳細ボタン -->
+            <div class="flex justify-between">
+              <%= link_to "詳細", character_path(character), class: "btn btn-primary btn-sm" %>
+              <p class="text-xs md:text-sm text-gray-600 mt-4">by <%= character.user.name %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
