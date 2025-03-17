@@ -20,6 +20,10 @@ class CharacterImageUploader < CarrierWave::Uploader::Base
     @name = "#{SecureRandom.uuid}.webp"
   end
 
+  def default_url(*args)
+    "https://placehold.jp/150x150.png"
+  end
+
   private
 
   def convert_to_webp
