@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def edit
     # 既存画像がある場合、キャッシュを呼び出す
-    @user.image.cache! if @user.image.present?
+    @user.image.cache! if @user.image.file.present?
   end
 
   def update
