@@ -27,6 +27,9 @@ class UserImageUploader < CarrierWave::Uploader::Base
   private
 
   def convert_to_webp
+    # アップロードされたファイルがなければ処理をスキップ
+    return unless file.present?
+    
     cache_stored_file! unless cached?
 
     tmp_path = File.join(File.dirname(current_path), "tmp_#{SecureRandom.uuid}.webp")
