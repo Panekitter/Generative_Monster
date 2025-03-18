@@ -46,10 +46,11 @@ class UsersController < ApplicationController
 
   def user_params
     permitted = params.require(:user).permit(:name, :image, :image_cache)
-    # もし画像ファイルが空かつ image_cache も空なら、:image を削除
-    if permitted[:image].blank? && permitted[:image_cache].blank?
+    # もし画像ファイルが空（サイズ0）かつ image_cache も空なら、:image を削除する
+    if permitted[:image].respond_to?(:size) && permitted[:image].size == 0 && permitted[:image_cache].blank?
       permitted.delete(:image)
     end
     permitted
   end
+  
 end
