@@ -18,8 +18,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    # volumes:
-    #   - .:/myapp
+    volumes:
+      - ./app/views:/myapp/app/views
+      - ./app/assets:/myapp/app/assets
     ports:
       - "3000:3000"
     restart: always

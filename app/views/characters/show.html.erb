@@ -46,10 +46,8 @@
     <% if @character.user == current_user %>
       <%= link_to "バトル開始！", new_battle_path(user_character_id: @character.id), class: "btn btn-primary" %>
     <% end %>
-    <% if @character.user == current_user %>
-      <%= link_to "キャラ一覧", user_characters_path(@character.user), class: "btn" %>
-    <% else %>
-      <%= link_to "#{@character.user.name}さんのキャラー一覧", user_characters_path(@character.user), class: "btn" %>
+    <% if @character.user != current_user %>
+      <%= link_to "#{@character.user.name}さんのマイページ", user_path(@character.user), class: "btn" %>
     <% end %>
     <% if @character.user == current_user %>
       <%= button_to "キャラクターを削除", character_path(@character),
