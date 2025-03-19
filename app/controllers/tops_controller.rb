@@ -6,13 +6,13 @@ class TopsController < ApplicationController
       redirect_to dashboard_path and return
     end
     
-    @characters = fetch_recent_characters
+    # @characters = fetch_recent_characters
     
     render :index
   end
 
   def dashboard
-    @characters = fetch_recent_characters
+    # @characters = fetch_recent_characters
   
     # 生成したキャラクターの数
     @character_count = current_user.characters.count
