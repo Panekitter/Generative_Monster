@@ -29,4 +29,35 @@
       <%= link_to "プレイヤー一覧", users_path, class: "btn btn-primary w-full" %>
     </div>
   </section>
+
+
+  <!-- 最近生成されたキャラクター -->
+  <section>
+    <h2 class="text-2xl font-bold mb-4 text-center">最近生成されたキャラクター</h2>
+      <!-- キャラクター一覧 -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+      <% @characters.each do |character| %>
+        <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+          <!-- キャラクター画像 -->
+          <figure class="w-full h-48 object-cover rounded-t-lg overflow-hidden">
+            <%= link_to character_path(character), class: "block w-full h-full" do %>
+              <%= image_tag(character.image? ? character.image.url : "https://placehold.jp/150x150.png", alt: character.name, class: "rounded-lg w-full h-full object-cover") %>
+            <% end %>
+          </figure> 
+
+          <!-- キャラクター情報 -->
+          <div class="p-4">
+            <h2 class="text-xl font-semibold mb-2"><%= character.name %></h2>
+            <p class="text-xs md:text-sm text-gray-600 mb-4"><%= truncate(character.description, length: 100) %></p>
+
+            <!-- 詳細ボタン -->
+            <div class="flex justify-between">
+              <%= link_to "詳細", character_path(character), class: "btn btn-primary btn-sm" %>
+              <p class="text-xs md:text-sm text-gray-600 mt-4">by <%= character.user.name %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
 </div>
