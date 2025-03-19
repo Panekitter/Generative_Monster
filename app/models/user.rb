@@ -15,6 +15,14 @@ class User < ApplicationRecord
     Rails.logger.error("Failed to remove image: #{e.message}")
   end
 
+  def daily_character_count
+    characters.where("created_at >= ?", Time.zone.now.beginning_of_day).count
+  end
+
+  def daily_battle_count
+    battles.where("created_at >= ?", Time.zone.now.beginning_of_day).count
+  end
+
   class << self
     def find_or_create_from_auth_hash(auth_hash)
       is_new_user = false

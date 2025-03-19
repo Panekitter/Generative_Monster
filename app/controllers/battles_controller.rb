@@ -1,5 +1,6 @@
 class BattlesController < ApplicationController
   skip_before_action :logged_in?, only: [:show, :og_image_page, :og_image]
+  before_action :check_daily_limit, only: [:new, :create]
 
   def new
     @user_character = current_user.characters.find(params[:user_character_id])
@@ -119,6 +120,14 @@ class BattlesController < ApplicationController
   end
 
   private
+
+  def check_daily_limit
+    return if current_user.no_limit?
+
+    if current_user.daily_battle_count >= Battle::DAILY_BATTLE_LIMIT
+      redirect_to root_path, alert: "本日の戦闘回数上限に達しています。"
+    end
+  end
 
   def battle_params
     params.require(:battle).permit(:character_1_id, :character_2_id, :character_1_name, :character_2_name,:winner_name, :event, :winner_user_id)

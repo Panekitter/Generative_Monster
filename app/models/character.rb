@@ -16,6 +16,8 @@ class Character < ApplicationRecord
   validates :intelligence, presence: true
   # validates :image, presence: true
 
+  DAILY_CHARACTER_LIMIT = 2
+
   private
 
   def remove_image!

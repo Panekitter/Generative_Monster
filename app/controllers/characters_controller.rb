@@ -1,5 +1,6 @@
 class CharactersController < ApplicationController
   skip_before_action :logged_in?, only: [:show, :og_image_page, :og_image]
+  before_action :check_daily_limit, only: [:new, :create]
 
   def index
     @user = User.find(params[:user_id])
@@ -102,5 +103,15 @@ class CharactersController < ApplicationController
   def og_image_page
     @character = Character.find(params[:id])
     render layout: 'og_layout'
+  end
+
+  private
+
+  def check_daily_limit
+    return if current_user.no_limit?
+
+    if current_user.daily_character_count >= Character::DAILY_CHARACTER_LIMIT
+      redirect_to root_path, alert: "本日のキャラ生成回数上限に達しています。"
+    end
   end
 end

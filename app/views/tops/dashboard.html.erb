@@ -8,6 +8,18 @@
     <p>勝利回数: <%= current_user.win_count %>回</p>
     <p>勝率: <%= @win_rate %>%</p>
 
+    <% if current_user.no_limit? %>
+      <p>キャラクターの生成は無制限です。</p>
+    <% else %>
+      <p>今日のキャラクター生成数: <%= current_user.daily_character_count %> / <%= Character::DAILY_CHARACTER_LIMIT %></p>
+    <% end %>
+
+    <% if current_user.no_limit? %>
+      <p>戦闘結果の生成は無制限です。</p>
+    <% else %>
+      <p>今日の戦闘結果生成数: <%= current_user.daily_battle_count %> / <%= Battle::DAILY_BATTLE_LIMIT %></p>
+    <% end %>
+
   </section>
 
   <!-- アクションボタン -->

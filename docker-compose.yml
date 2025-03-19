@@ -19,9 +19,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - ./app:/myapp/app
-      - ./config:/myapp/config
-      - ./lib:/myapp/lib
+      - .:/myapp
+      - bundle_data:/usr/local/bundle
+      - node_modules:/myapp/node_modules
     ports:
       - "3000:3000"
     restart: always
@@ -40,7 +40,5 @@ services:
 
 volumes:
   postgres_volume:
-  gem_cache_volume:
-  vendor_bundle_volume:
-  tmp_volume:
-  log_volume:
+  bundle_data:
+  node_modules:
