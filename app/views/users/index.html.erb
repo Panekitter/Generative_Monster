@@ -44,9 +44,9 @@
               <td class="text-center"><%= index + 1 %>位</td>
               <td class="text-center">
                 <div class="flex justify-center items-center space-x-2">
-                  <%= image_tag(user.image.present? ? user.image.url : "https://placehold.jp/150x150.png", 
+                  <%= image_tag(user.image.url, 
                                 alt: user.name,
-                                class: "rounded-full size-5 md:size-10 object-cover") %>
+                                class: "rounded-full size-5 md:size-10 object-cover", loading: "lazy") %>
                   <span><%= user.name %></span>
                 </div>
               </td>
