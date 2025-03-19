@@ -32,14 +32,15 @@ RUN gem install foreman
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 
-# bundle installの実行
-RUN bundle install
+# bundle installの実行（BUNDLE_PATH がデフォルトなら vendor/bundle にインストールされるようにするか、明示的に指定する）
+RUN bundle config set --local path 'vendor/bundle' \
+ && bundle install
+
+ # vendor/bundleを名前付きボリュームとして扱うためにVOLUME命令を追加
+VOLUME /myapp/vendor/bundle
 
 # アプリケーションコードをコピー
 ADD . /myapp
-
-# コピー後、再度 /myapp 以下のファイルを appuser に変更
-RUN chown -R appuser:appgroup /myapp
 
 # credentials のパーミッションを変更
 RUN chmod 644 /myapp/config/credentials/development.key
