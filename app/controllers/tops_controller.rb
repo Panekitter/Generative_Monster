@@ -31,6 +31,6 @@ class TopsController < ApplicationController
   private
 
   def fetch_recent_characters
-    Character.order(created_at: :desc).limit(12)
+    Character.includes(:user).order(created_at: :desc).limit(12)
   end
 end
