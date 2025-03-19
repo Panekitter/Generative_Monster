@@ -53,7 +53,7 @@
           <!-- キャラクター画像 -->
           <figure class="w-full h-48 object-cover rounded-t-lg overflow-hidden">
             <%= link_to character_path(character), class: "block w-full h-full" do %>
-              <%= image_tag(character.image? ? character.image.url : "https://placehold.jp/150x150.png", alt: character.name, class: "rounded-lg w-full h-full object-cover") %>
+              <%= image_tag(character.image.url, alt: character.name, class: "rounded-lg w-full h-full object-cover", loading: "lazy") %>
             <% end %>
           </figure> 
 
