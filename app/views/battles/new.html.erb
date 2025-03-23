@@ -14,7 +14,7 @@
             <img src="<%= @opponent_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @opponent_character.name %>" class="w-24 h-24 rounded-xl mr-4">
             <div>
               <h2 class="card-title text-xl font-bold"><%= @opponent_character.name %></h2>
-              <p class="text-gray-500">user_<%= @opponent_character.user.id %></p>
+              <p class="text-gray-500"><%= @opponent_character.user.name %></p>
             </div>
           </div>
           <p class="text-gray-600 mb-4"><%= @opponent_character.description %></p>
@@ -31,7 +31,7 @@
             <img src="<%= @user_character.image.url || 'https://placehold.jp/150x150.png' %>" alt="<%= @user_character.name %>" class="w-24 h-24 rounded-xl mr-4">
             <div>
               <h2 class="card-title text-xl font-bold"><%= @user_character.name %></h2>
-              <p class="text-gray-500">user_<%= @user_character.user.id %></p>
+              <p class="text-gray-500"><%= @user_character.user.name %></p>
             </div>
           </div>
           <p class="text-gray-600 mb-4"><%= @user_character.description %></p>
