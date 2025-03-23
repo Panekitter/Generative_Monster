@@ -3,7 +3,7 @@
   <section class="flex flex-col items-center mb-8">
     <%= image_tag current_user.image.url, alt: current_user.name, class: "rounded-full mb-4" %>
     <p class="text-lg font-semibold"><%= current_user.name %></p>
-    <p>生成したキャラの数: <%= @character_count %>体</p>
+    <p>生成したキャラの数: <%= current_user.characters.count %> / 30</p>
     <p>戦闘回数: <%= current_user.battle_count %>回</p>
     <p>勝利回数: <%= current_user.win_count %>回</p>
     <p>勝率: <%= @win_rate %>%</p>

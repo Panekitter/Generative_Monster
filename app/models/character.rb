@@ -16,6 +16,8 @@ class Character < ApplicationRecord
   validates :intelligence, presence: true
   # validates :image, presence: true
 
+  validate :user_character_limit, on: :create
+
   DAILY_CHARACTER_LIMIT = 2
 
   private
@@ -24,5 +26,11 @@ class Character < ApplicationRecord
     image.remove! if image.present?
   rescue => e
     Rails.logger.error("Failed to remove image: #{e.message}")
+  end
+
+  def user_character_limit
+    if user.characters.count >= 30
+      errors.add(:base, "アカウントごとのキャラクター保存数の上限に達しています。")
+    end
   end
 end
