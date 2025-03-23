@@ -112,6 +112,11 @@ class CharactersController < ApplicationController
 
     if current_user.daily_character_count >= Character::DAILY_CHARACTER_LIMIT
       redirect_to root_path, alert: "本日のキャラ生成回数上限に達しています。"
+      return
+    end
+
+    if current_user.characters.count >= 30
+      redirect_to root_path, alert: "キャラクター保存数の上限に達しています。"
     end
   end
 end
