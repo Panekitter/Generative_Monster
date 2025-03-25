@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_19_140005) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_25_094017) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_19_140005) do
     t.string "user_skill_description"
     t.string "opponent_skill_description"
     t.index ["user_id"], name: "index_battles_on_user_id"
+  end
+
+  create_table "character_creation_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_character_creation_logs_on_user_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -72,6 +78,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_19_140005) do
   add_foreign_key "battles", "characters", column: "character_2_id", on_delete: :nullify
   add_foreign_key "battles", "users", column: "winner_user_id", on_delete: :nullify
   add_foreign_key "battles", "users", on_delete: :cascade
+  add_foreign_key "character_creation_logs", "users"
   add_foreign_key "characters", "users"
   add_foreign_key "skills", "characters"
 end
