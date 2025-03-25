@@ -2,6 +2,7 @@ class Character < ApplicationRecord
   mount_uploader :image, CharacterImageUploader
 
   before_destroy :remove_image!
+  after_create :log_creation_event
 
   belongs_to :user
   has_many :skills, dependent: :destroy
@@ -32,5 +33,9 @@ class Character < ApplicationRecord
     if user.characters.count >= 30
       errors.add(:base, "アカウントごとのキャラクター保存数の上限に達しています。")
     end
+  end
+
+  def log_creation_event
+    CharacterCreationLog.create!(user: user, created_at: Time.zone.now)
   end
 end

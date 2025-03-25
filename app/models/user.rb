@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :characters, dependent: :destroy
   has_many :battles, dependent: :destroy
+  has_many :character_creation_logs
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
@@ -16,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def daily_character_count
-    characters.where("created_at >= ?", Time.zone.now.beginning_of_day).count
+    character_creation_logs.where("created_at >= ?", Time.zone.now.beginning_of_day).count
   end
 
   def daily_battle_count
